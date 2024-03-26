@@ -1,29 +1,50 @@
 package objectArmy.bookEater.domain.book;
 
-import objectArmy.bookEater.domain.user.User;
+import jakarta.persistence.*;
+import objectArmy.bookEater.domain.user.UserProfile;
 
 /**
  * @author Philip Athanasopoulos
  */
+@Entity
+@Table(name = "book_request")
 public class BookRequest {
-    private User requestee;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private int id;
+    @OneToOne
+    private UserProfile requestee;
+
+    @OneToOne
     private BookOffer bookOffer;
 
-    public BookRequest(User requestee, BookOffer bookOffer) {
+    public BookRequest(UserProfile requestee, BookOffer bookOffer) {
         this.requestee = requestee;
         this.bookOffer = bookOffer;
     }
 
-    public User getRequestee() {
+    public BookRequest() {
+
+    }
+
+    public UserProfile getRequestee() {
         return requestee;
     }
 
-    public void setRequestee(User requestee) {
+    public void setRequestee(UserProfile requestee) {
         this.requestee = requestee;
     }
 
     public BookOffer getBookOffer() {
         return bookOffer;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setBookOffer(BookOffer bookOffer) {

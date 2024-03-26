@@ -1,16 +1,29 @@
 package objectArmy.bookEater.domain.book;
 
+import jakarta.persistence.*;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 
 /**
  * @author Philip Athanasopoulos
  */
+@Entity
+@Table(name = "book")
 public class Book {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @ManyToMany
     private ArrayList<Author> authors;
     private String title;
     private String summary;
+    @ManyToMany
     private ArrayList<BookCategory> categories;
 
+
+    public Book() {
+    }
 
     public Book(ArrayList<Author> authors, String title, String summary, ArrayList<BookCategory> categories) {
         this.title = title;
@@ -47,6 +60,14 @@ public class Book {
 
     public String getSummary() {
         return summary;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setSummary(String summary) {

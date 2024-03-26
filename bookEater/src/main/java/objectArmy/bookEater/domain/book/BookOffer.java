@@ -1,6 +1,7 @@
 package objectArmy.bookEater.domain.book;
 
-import objectArmy.bookEater.domain.user.User;
+import jakarta.persistence.*;
+import objectArmy.bookEater.domain.user.UserProfile;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,14 +9,26 @@ import java.util.Date;
 /**
  * @author Philip Athanasopoulos
  */
+@Entity
+@Table(name = "book_offer")
 public class BookOffer {
-    private User offeror;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @OneToOne
+    private UserProfile offeror;
+
+    @OneToOne
     private Book offeredBook;
     private String offerDescription;
+    @OneToMany
     private ArrayList<BookRequest> requests;
     private Date postDate;
 
-    public BookOffer(User offeror, Book offeredBook, String offerDescription, Date postDate) {
+    public BookOffer() {
+    }
+
+    public BookOffer(UserProfile offeror, Book offeredBook, String offerDescription, Date postDate) {
         this.offeror = offeror;
         this.offeredBook = offeredBook;
         this.offerDescription = offerDescription;
@@ -23,11 +36,11 @@ public class BookOffer {
         this.postDate = postDate;
     }
 
-    public User getOfferor() {
+    public UserProfile getOfferor() {
         return offeror;
     }
 
-    public void setOfferor(User offeror) {
+    public void setOfferor(UserProfile offeror) {
         this.offeror = offeror;
     }
 
