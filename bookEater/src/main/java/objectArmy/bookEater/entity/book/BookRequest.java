@@ -1,7 +1,7 @@
-package objectArmy.bookEater.domain.book;
+package objectArmy.bookEater.entity.book;
 
 import jakarta.persistence.*;
-import objectArmy.bookEater.domain.user.UserProfile;
+import objectArmy.bookEater.entity.user.UserProfile;
 
 /**
  * @author Philip Athanasopoulos

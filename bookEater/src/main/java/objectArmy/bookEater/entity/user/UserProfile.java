@@ -1,11 +1,12 @@
-package objectArmy.bookEater.domain.user;
+package objectArmy.bookEater.entity.user;
 
 import jakarta.persistence.*;
-import objectArmy.bookEater.domain.book.BookOffer;
-import objectArmy.bookEater.domain.book.BookRequest;
+import objectArmy.bookEater.entity.book.BookOffer;
+import objectArmy.bookEater.entity.book.BookRequest;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Philip Athanasopoulos
@@ -17,7 +18,7 @@ public class UserProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Long id;
 
     private String firstName;
     private String lastName;
@@ -26,9 +27,9 @@ public class UserProfile {
     private int age;
     private String email;
     @OneToMany
-    private ArrayList<BookOffer> bookOffers;
+    private List<BookOffer> bookOffers;
     @OneToMany
-    private ArrayList<BookRequest> outgoingBookRequests;
+    private List<BookRequest> outgoingBookRequests;
 
     public UserProfile() {
         this.bookOffers = new ArrayList<>();
@@ -74,7 +75,7 @@ public class UserProfile {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public ArrayList<BookOffer> getBookOffers() {
+    public List<BookOffer> getBookOffers() {
         return bookOffers;
     }
 
@@ -82,7 +83,7 @@ public class UserProfile {
         this.bookOffers = bookOffers;
     }
 
-    public ArrayList<BookRequest> getOutgoingBookRequests() {
+    public List<BookRequest> getOutgoingBookRequests() {
         return outgoingBookRequests;
     }
 

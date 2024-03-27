@@ -1,10 +1,8 @@
-package objectArmy.bookEater.domain.book;
+package objectArmy.bookEater.entity.book;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import org.springframework.stereotype.Component;
 
 /**
  * @author Philip Athanasopoulos
@@ -13,6 +11,7 @@ import org.springframework.stereotype.Component;
 @Table(name = "book_category")
 public class BookCategory {
     @Id
+    private Long id;
     private String name;
 
     public BookCategory() {

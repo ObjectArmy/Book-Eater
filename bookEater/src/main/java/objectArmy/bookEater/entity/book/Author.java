@@ -1,7 +1,6 @@
-package objectArmy.bookEater.domain.book;
+package objectArmy.bookEater.entity.book;
 
 import jakarta.persistence.*;
-import org.springframework.stereotype.Component;
 
 /**
  * @author Philip Athanasopoulos

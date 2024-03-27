@@ -1,20 +1,27 @@
 package objectArmy.bookEater.controller;
 
-import org.springframework.stereotype.Controller;
+import objectArmy.bookEater.entity.user.UserProfile;
+import objectArmy.bookEater.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @author Philip Athanasopoulos
  */
-@Controller
+@RestController
 public class UserController {
+    private final UserService userService;
 
-    @RequestMapping("/login")
-    public String users(){
-        return "login";
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
-    @RequestMapping("/")
-    public String home(){
-        return "login";
+
+    @RequestMapping("/users")
+    public List<UserProfile> getUsers() {
+        return userService.getUsers();
     }
 }
