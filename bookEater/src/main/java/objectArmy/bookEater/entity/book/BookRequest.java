@@ -10,8 +10,8 @@ import objectArmy.bookEater.entity.user.UserProfile;
 @Table(name = "book_request")
 public class BookRequest {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @OneToOne
     private UserProfile requestee;
 
@@ -39,11 +39,11 @@ public class BookRequest {
         return bookOffer;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
