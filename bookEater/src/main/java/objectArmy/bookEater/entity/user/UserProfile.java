@@ -3,6 +3,7 @@ package objectArmy.bookEater.entity.user;
 import jakarta.persistence.*;
 import objectArmy.bookEater.entity.book.BookOffer;
 import objectArmy.bookEater.entity.book.BookRequest;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,6 +12,7 @@ import java.util.List;
 /**
  * @author Philip Athanasopoulos
  */
+
 @Entity
 @Table(name = "user")
 public class UserProfile {
@@ -22,7 +24,7 @@ public class UserProfile {
 
     private String firstName;
     private String lastName;
-    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd-mm-yyyy")
     private Date dateOfBirth;
     private int age;
     private String email;

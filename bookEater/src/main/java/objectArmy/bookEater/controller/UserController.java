@@ -3,15 +3,16 @@ package objectArmy.bookEater.controller;
 import objectArmy.bookEater.entity.user.UserProfile;
 import objectArmy.bookEater.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  * @author Philip Athanasopoulos
  */
-@RestController
+@Controller
 public class UserController {
     private final UserService userService;
 
@@ -20,8 +21,28 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping("/users")
-    public List<UserProfile> getUsers() {
-        return userService.getUsers();
+
+    @GetMapping("/login")
+    public String gotoLoginForm() {
+        return "login";
     }
+
+    @PostMapping("/login")
+    public String loginUser() {
+        return "redirect:/";
+    }
+
+    @GetMapping("/register")
+    public String goToRegisterForm(Model model) {
+        model.addAttribute("user", new UserProfile());
+        return "register";
+    }
+
+    @PostMapping("/register")
+    public String registerUser(@ModelAttribute("user") UserProfile user, Model model) {
+        userService.saveUser(user);
+        return "redirect:/login";
+    }
+
+
 }

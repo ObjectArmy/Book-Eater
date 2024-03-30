@@ -19,7 +19,16 @@ public class UserService {
         this.userProfileRepository = userProfileRepository;
     }
 
+
     public List<UserProfile> getUsers() {
         return userProfileRepository.findAll();
+    }
+
+    public void saveUser(UserProfile userToAdd) {
+        userProfileRepository.save(userToAdd);
+    }
+
+    public void deleteUser(UserProfile userToDelete) {
+        userProfileRepository.delete(userToDelete);
     }
 }

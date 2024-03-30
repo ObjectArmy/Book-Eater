@@ -8,10 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class PageController {
-    @RequestMapping("/register")
-    public String register() {
-        return "register";
-    }
+
 
 
     @RequestMapping("/login")
@@ -19,8 +16,5 @@ public class PageController {
         return "login";
     }
 
-    @RequestMapping("/")
-    public String home() {
-        return "register";
-    }
+
 }
