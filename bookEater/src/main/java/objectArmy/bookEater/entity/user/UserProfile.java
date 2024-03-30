@@ -14,7 +14,7 @@ import java.util.List;
  */
 
 @Entity
-@Table(name = "user")
+@Table(name = "user_profile")
 public class UserProfile {
 
     @Id
