@@ -26,6 +26,9 @@ public class UserProfile {
     private Date dateOfBirth;
     private int age;
     private String email;
+
+    private String password;
+
     @OneToMany
     private List<BookOffer> bookOffers;
     @OneToMany
@@ -36,12 +39,13 @@ public class UserProfile {
         this.outgoingBookRequests = new ArrayList<>();
     }
 
-    public UserProfile(String firstName, String lastName, Date dateOfBirth, int age, String email) {
+    public UserProfile(String firstName, String lastName, Date dateOfBirth, int age, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.age = age;
         this.email = email;
+        this.password = password;
         this.bookOffers = new ArrayList<>();
         this.outgoingBookRequests = new ArrayList<>();
     }
@@ -122,5 +126,13 @@ public class UserProfile {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
