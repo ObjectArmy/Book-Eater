@@ -1,4 +1,4 @@
-INSERT INTO book_eater.user (age, date_of_birth, id, email, first_name, last_name)
+INSERT INTO user_profile (age, date_of_birth, id, email, first_name, last_name)
 VALUES
     (25, '1999-05-15', 1, 'user1@example.com', 'John', 'Doe'),
     (30, '1994-10-22', 2, 'user2@example.com', 'Alice', 'Smith'),

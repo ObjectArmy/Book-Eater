@@ -35,13 +35,19 @@ public class UserController {
     @GetMapping("/register")
     public String goToRegisterForm(Model model) {
         model.addAttribute("user", new UserProfile());
-        return "register";
+        return "register/registerForm";
     }
 
-    @PostMapping("/register")
+    @PostMapping("register/registerForm")
     public String registerUser(@ModelAttribute("user") UserProfile user, Model model) {
-        userService.saveUser(user);
-        return "redirect:/login";
+        try {
+            userService.saveUser(user);
+            model.addAttribute("success", true);
+            //stay in the same page
+            return "register/registerForm";
+        } catch (Exception e) {
+            return "register/registerForm";
+        }
     }
 
 
