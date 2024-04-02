@@ -1,4 +1,4 @@
-INSERT INTO book_eater.book (id, summary, title)
+INSERT INTO book (id, summary, title)
 VALUES
     (1, 'A gripping tale of adventure and survival in the wilderness.', 'Into the Wild'),
     (2, 'A classic novel depicting the struggles of the American dream.', 'The Great Gatsby'),

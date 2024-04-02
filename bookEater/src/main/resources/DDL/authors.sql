@@ -1,4 +1,4 @@
-INSERT INTO book_eater.author (id, name)
+INSERT INTO author (id, name)
 VALUES
     (1, 'Jack London'),
     (2, 'F. Scott Fitzgerald'),

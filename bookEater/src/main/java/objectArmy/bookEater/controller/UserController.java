@@ -40,14 +40,9 @@ public class UserController {
 
     @PostMapping("register/registerForm")
     public String registerUser(@ModelAttribute("user") UserProfile user, Model model) {
-        try {
-            userService.saveUser(user);
-            model.addAttribute("success", true);
-            //stay in the same page
-            return "register/registerForm";
-        } catch (Exception e) {
-            return "register/registerForm";
-        }
+        userService.saveUser(user);
+        model.addAttribute("success", true);
+        return "register/registerForm";
     }
 
 
