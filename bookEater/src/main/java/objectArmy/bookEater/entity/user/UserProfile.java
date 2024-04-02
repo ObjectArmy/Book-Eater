@@ -25,9 +25,9 @@ public class UserProfile implements UserDetails {
     private Long id;
     private String firstName;
     private String lastName;
-    @DateTimeFormat(pattern = "dd-mm-yyyy")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date dateOfBirth;
-    private int age;
+    @Column(unique = true)
     private String email;
 
     private String password;
@@ -46,7 +46,6 @@ public class UserProfile implements UserDetails {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
-        this.age = age;
         this.email = email;
         this.password = password;
         this.bookOffers = new ArrayList<>();
@@ -55,7 +54,7 @@ public class UserProfile implements UserDetails {
 
     @Override
     public String toString() {
-        return "UserProfile{" + "firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", dateOfBirth=" + dateOfBirth + ", age=" + age + ", email='" + email + '\'' + '}';
+        return "UserProfile{" + "firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", dateOfBirth=" + dateOfBirth + ", email='" + email + '\'' + '}';
     }
 
     public String getFirstName() {
@@ -115,14 +114,6 @@ public class UserProfile implements UserDetails {
     }
 
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -138,6 +129,10 @@ public class UserProfile implements UserDetails {
 
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
@@ -163,9 +158,5 @@ public class UserProfile implements UserDetails {
     @Override
     public boolean isEnabled() {
         return false;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }

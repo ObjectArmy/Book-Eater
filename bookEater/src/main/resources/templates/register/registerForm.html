@@ -3,7 +3,11 @@
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet"
+          href=
+                  "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
 
     <meta charset="UTF-8">
     <title>Title</title>
@@ -28,11 +32,12 @@
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
-                                            <input type="text" id="form3Example1c" class="form-control"
+                                            <input type="text" id="form3Example1ca" class="form-control"
                                                    th:field="*{firstName}"/>
                                             <label class="form-label" for="form3Example1c">Your First Name</label>
                                         </div>
                                     </div>
+
 
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-user fa-lg me-3 fa-fw"></i>
@@ -44,24 +49,44 @@
                                     </div>
 
                                     <div class="d-flex flex-row align-items-center mb-4">
-                                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                                        <i class="fas fa-calendar fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
-                                            <input type="text" id="form3Example2cs" class="form-control"
-                                                   th:field="*{dateOfBirth}"/>
-                                            <label class="form-label" for="form3Example1c">Date of birth
-                                                (DD-MM-YYYY)</label>
+                                            <div id="datepicker" class="input-group date" data-date-format="dd-mm-yyyy">
+                                                <input class="form-control" type="text" readonly
+                                                       th:field="*{dateOfBirth}" id="form3Example1c"/>
+                                                <span class="input-group-addon">
+                                                    <i class="glyphicon glyphicon-calendar"></i>
+                                                </span>
+                                            </div>
+                                            <label class="form-label" for="form3Example1c">Date of birth</label>
                                         </div>
                                     </div>
 
+                                    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+                                            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+                                            crossorigin="anonymous">
+                                    </script>
 
-                                    <div class="d-flex flex-row align-items-center mb-4">
-                                        <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                                        <div class="form-outline flex-fill mb-0">
-                                            <input type="text" id="form3Example3cd" class="form-control"
-                                                   th:field="*{age}"/>
-                                            <label class="form-label" for="form3Example3c">Your Age</label>
-                                        </div>
-                                    </div>
+                                    <script>
+                                        $(function () {
+                                            $("#datepicker").datepicker({
+                                                autoclose: true,
+                                                todayHighlight: true,
+                                                todayBtn: "linked",
+                                            }).datepicker('update', new Date());
+                                        });
+                                    </script>
+                                    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+                                            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                                            crossorigin="anonymous">
+                                    </script>
+                                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+                                            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+                                            crossorigin="anonymous">
+                                    </script>
+                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js">
+                                    </script>
+
 
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
