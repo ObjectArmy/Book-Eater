@@ -16,14 +16,10 @@ import java.util.List;
  */
 @Service
 public class UserService implements UserDetailsService {
-    private final UserProfileRepository userProfileRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
-
     @Autowired
-    public UserService(UserProfileRepository userProfileRepository, BCryptPasswordEncoder passwordEncoder) {
-        this.userProfileRepository = userProfileRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
+    private UserProfileRepository userProfileRepository;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     public List<UserProfile> getUsers() {
         return userProfileRepository.findAll();
