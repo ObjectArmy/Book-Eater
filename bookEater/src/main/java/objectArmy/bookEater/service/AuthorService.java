@@ -9,11 +9,8 @@ import java.util.List;
 
 @Service
 public class AuthorService {
-    private AuthorRepository authorRepository;
     @Autowired
-    public AuthorService(AuthorRepository authorRepository) {
-        this.authorRepository = authorRepository;
-    }
+    private AuthorRepository authorRepository;
 
     public List<Author> getAuthors(){
         return this.authorRepository.findAll();

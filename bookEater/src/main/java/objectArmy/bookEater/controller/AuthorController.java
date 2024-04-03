@@ -12,11 +12,8 @@ import java.util.List;
 
 @RestController
 public class AuthorController {
-    private final AuthorService authorService;
     @Autowired
-    public AuthorController (AuthorService authorService){
-        this.authorService = authorService;
-    }
+    private AuthorService authorService;
 
     @GetMapping("/authors")
     public List<Author> getAuthors(){
