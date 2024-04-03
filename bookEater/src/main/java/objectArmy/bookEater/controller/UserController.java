@@ -1,49 +1,29 @@
 package objectArmy.bookEater.controller;
 
+import objectArmy.bookEater.dao.UserProfileRepository;
 import objectArmy.bookEater.entity.user.UserProfile;
-import objectArmy.bookEater.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @author Philip Athanasopoulos
  */
-@Controller
+@RestController
 public class UserController {
-    private final UserService userService;
+    private final UserProfileRepository userProfileRepository;
 
     @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public UserController(UserProfileRepository userProfileRepository) {
+        this.userProfileRepository = userProfileRepository;
     }
 
-
-    @GetMapping("/login")
-    public String gotoLoginForm() {
-        return "login";
+    @GetMapping("/users")
+    public List<UserProfile> getUsers(){
+        return userProfileRepository.findAll();
     }
-
-    @PostMapping("/login")
-    public String loginUser() {
-        return "redirect:/";
-    }
-
-    @GetMapping("/register")
-    public String goToRegisterForm(Model model) {
-        model.addAttribute("user", new UserProfile());
-        return "register/registerForm";
-    }
-
-    @PostMapping("register/registerForm")
-    public String registerUser(@ModelAttribute("user") UserProfile user, Model model) {
-        userService.saveUser(user);
-        model.addAttribute("success", true);
-        return "register/registerForm";
-    }
-
 
 }
