@@ -2,10 +2,12 @@ package objectArmy.bookEater.security;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import objectArmy.bookEater.entity.user.UserProfile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -25,10 +27,11 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     }
 
     protected String determineTargetUrl(Authentication authentication) {
+        UserProfile user = (UserProfile) authentication.getPrincipal();
         String url = "/login?error=true";
 
         if (authentication.isAuthenticated()) {
-            url = "/userProfile";
+            url = "/" + user.getId() + "/settings";
         }
         return url;
     }
