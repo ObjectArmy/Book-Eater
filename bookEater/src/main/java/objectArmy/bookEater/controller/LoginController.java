@@ -1,8 +1,7 @@
 package objectArmy.bookEater.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * @author Philip Athanasopoulos
@@ -10,14 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class LoginController {
 
-    @GetMapping("/login")
+    @RequestMapping("/login")
     public String gotoLoginForm() {
         return "login";
     }
 
-    @PostMapping("/login")
-    public String loginUser() {
-        return "redirect:/";
-    }
 
 }
