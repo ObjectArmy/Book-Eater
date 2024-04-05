@@ -1,4 +1,4 @@
-package objectArmy.bookEater.security;
+package objectArmy.bookEater.security.config;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -31,7 +31,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         String url = "/login?error=true";
 
         if (authentication.isAuthenticated()) {
-            url = "/" + user.getId() + "/settings";
+            url = "/homepage";
         }
         return url;
     }

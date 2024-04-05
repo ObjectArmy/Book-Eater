@@ -1,4 +1,4 @@
-package objectArmy.bookEater.security;
+package objectArmy.bookEater.security.config;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
