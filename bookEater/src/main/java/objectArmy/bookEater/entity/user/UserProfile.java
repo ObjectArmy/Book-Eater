@@ -29,9 +29,8 @@ public class UserProfile implements UserDetails {
     private Date dateOfBirth;
     @Column(unique = true)
     private String email;
-
     private String password;
-
+    private String bio;
     @OneToMany
     private List<BookOffer> bookOffers;
     @OneToMany
@@ -41,7 +40,6 @@ public class UserProfile implements UserDetails {
         this.bookOffers = new ArrayList<>();
         this.outgoingBookRequests = new ArrayList<>();
     }
-
     public UserProfile(String firstName, String lastName, Date dateOfBirth, int age, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -50,6 +48,14 @@ public class UserProfile implements UserDetails {
         this.password = password;
         this.bookOffers = new ArrayList<>();
         this.outgoingBookRequests = new ArrayList<>();
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 
     @Override

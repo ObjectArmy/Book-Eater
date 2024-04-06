@@ -42,7 +42,37 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-    public UserProfile getUserById(long id){
+    public UserProfile getUserById(long id) {
         return userProfileRepository.findUserById(id);
+    }
+
+    public UserProfile updateUser(UserProfile newUserProfile, Long id) {
+        UserProfile user = userProfileRepository.findUserById(id);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+
+        if (newUserProfile.getFirstName() != null && !newUserProfile.getFirstName().equals(user.getFirstName())) {
+            user.setFirstName(newUserProfile.getFirstName());
+        }
+
+        if (newUserProfile.getLastName() != null && !newUserProfile.getLastName().equals(user.getLastName())) {
+            user.setLastName(newUserProfile.getLastName());
+        }
+
+        if (newUserProfile.getEmail() != null && !newUserProfile.getEmail().equals(user.getEmail())) {
+            user.setEmail(newUserProfile.getEmail());
+        }
+
+//        if (newUserProfile.getPassword() != null && !passwordEncoder.matches(newUserProfile.getPassword(), user.getPassword())) {
+//            user.setPassword(passwordEncoder.encode(newUserProfile.getPassword()));
+//        }
+
+        if (newUserProfile.getBio() != null && !newUserProfile.getBio().equals(user.getBio())) {
+            user.setBio(newUserProfile.getBio());
+        }
+
+        userProfileRepository.save(user);
+        return user;
     }
 }
