@@ -35,7 +35,7 @@ public class RegisterController {
     public String registerUser(@ModelAttribute("user") UserProfile user, @RequestParam("repeatPassword") String repeatPassword, Model model) {
         // Validate the passwords
         if (!user.getPassword().equals(repeatPassword)) {
-            model.addAttribute("error", "Passwords do not match");
+            model.addAttribute("wrongRepeatedPassword", true);
             return "register/registerForm";
         }
         // Everything's fine? Save the user
