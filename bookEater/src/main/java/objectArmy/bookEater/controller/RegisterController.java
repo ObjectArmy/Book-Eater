@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @author Philip Athanasopoulos
@@ -31,7 +32,13 @@ public class RegisterController {
     }
 
     @PostMapping("register/registerForm")
-    public String registerUser(@ModelAttribute("user") UserProfile user, Model model) {
+    public String registerUser(@ModelAttribute("user") UserProfile user, @RequestParam("repeatPassword") String repeatPassword, Model model) {
+        // Validate the passwords
+        if (!user.getPassword().equals(repeatPassword)) {
+            model.addAttribute("error", "Passwords do not match");
+            return "register/registerForm";
+        }
+        // Everything's fine? Save the user
         userService.saveUser(user);
         model.addAttribute("success", true);
         return "register/registerForm";
