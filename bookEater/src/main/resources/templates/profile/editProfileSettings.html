@@ -31,9 +31,15 @@
                                               th:value="${user.bio}"></textarea>
                                     </p>
                                     <div class="btn-group">
-                                        <select class="form-control" id="dropDownList">
+                                        <select class="form-control" name="category">
                                             <option value="0">select category</option>
-                                            <option th:each="category : ${bookCategories}" th:value="${category.name}" th:text="${category.name}"></option>
+                                            <option  th:each="category : ${bookCategories}" th:value="${category.name}" th:text="${category.name}"></option>
+                                        </select>
+                                    </div>
+                                    <div class="btn-group">
+                                        <select class="form-control">
+                                            <option value="0">current categories</option>
+                                            <option th:each="category : ${user.favoriteCategories}" th:value="${category.name}" th:text="${category.name}"></option>
                                         </select>
                                     </div>
                                 </div>

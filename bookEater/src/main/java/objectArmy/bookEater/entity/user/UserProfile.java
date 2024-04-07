@@ -1,6 +1,7 @@
 package objectArmy.bookEater.entity.user;
 
 import jakarta.persistence.*;
+import objectArmy.bookEater.entity.book.BookCategory;
 import objectArmy.bookEater.entity.book.BookOffer;
 import objectArmy.bookEater.entity.book.BookRequest;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -31,15 +32,18 @@ public class UserProfile implements UserDetails {
     private String email;
     private String password;
     private String bio;
-    @OneToMany
+    @ManyToMany (fetch = FetchType.EAGER)
+    private List<BookCategory> favoriteCategories;
+    @OneToMany (fetch = FetchType.EAGER)
     private List<BookOffer> bookOffers;
-    @OneToMany
+    @OneToMany (fetch = FetchType.EAGER)
     private List<BookRequest> outgoingBookRequests;
 
     public UserProfile() {
         this.bookOffers = new ArrayList<>();
         this.outgoingBookRequests = new ArrayList<>();
     }
+
     public UserProfile(String firstName, String lastName, Date dateOfBirth, int age, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -48,6 +52,15 @@ public class UserProfile implements UserDetails {
         this.password = password;
         this.bookOffers = new ArrayList<>();
         this.outgoingBookRequests = new ArrayList<>();
+        this.favoriteCategories = new ArrayList<>();
+    }
+
+    public List<BookCategory> getFavoriteCategories() {
+        return favoriteCategories;
+    }
+
+    public void setFavoriteCategories(List<BookCategory> favoriteCategories) {
+        this.favoriteCategories = favoriteCategories;
     }
 
     public String getBio() {
@@ -91,12 +104,20 @@ public class UserProfile implements UserDetails {
         return bookOffers;
     }
 
+    public void setBookOffers(List<BookOffer> bookOffers) {
+        this.bookOffers = bookOffers;
+    }
+
     public void setBookOffers(ArrayList<BookOffer> bookOffers) {
         this.bookOffers = bookOffers;
     }
 
     public List<BookRequest> getOutgoingBookRequests() {
         return outgoingBookRequests;
+    }
+
+    public void setOutgoingBookRequests(List<BookRequest> outgoingBookRequests) {
+        this.outgoingBookRequests = outgoingBookRequests;
     }
 
     public void setOutgoingBookRequests(ArrayList<BookRequest> outgoingBookRequests) {
@@ -118,7 +139,6 @@ public class UserProfile implements UserDetails {
     public void removeOutgoingBookRequest(BookRequest bookRequest) {
         this.outgoingBookRequests.remove(bookRequest);
     }
-
 
     public String getEmail() {
         return email;
@@ -168,5 +188,9 @@ public class UserProfile implements UserDetails {
 
     public Long getId() {
         return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

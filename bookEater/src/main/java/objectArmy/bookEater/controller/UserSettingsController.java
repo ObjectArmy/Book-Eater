@@ -1,5 +1,6 @@
 package objectArmy.bookEater.controller;
 
+import objectArmy.bookEater.entity.book.BookCategory;
 import objectArmy.bookEater.entity.user.UserProfile;
 import objectArmy.bookEater.service.BookCategoryService;
 import objectArmy.bookEater.service.UserService;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @author Philip Athanasopoulos
