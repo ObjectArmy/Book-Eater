@@ -1,6 +1,7 @@
 package objectArmy.bookEater.controller;
 
 import objectArmy.bookEater.entity.user.UserProfile;
+import objectArmy.bookEater.service.BookCategoryService;
 import objectArmy.bookEater.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,11 +21,14 @@ public class UserSettingsController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    BookCategoryService bookCategoryService;
 
     @GetMapping("/settings")
     public String gotoUserSettings(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserProfile user = (UserProfile) authentication.getPrincipal();
+        model.addAttribute("bookCategories", this.bookCategoryService.getBookCategories());
         model.addAttribute("user", user);
         return "profile/editProfileSettings";
     }
