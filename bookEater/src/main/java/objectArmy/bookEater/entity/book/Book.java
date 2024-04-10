@@ -1,6 +1,7 @@
 package objectArmy.bookEater.entity.book;
 
 import jakarta.persistence.*;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +22,9 @@ public class Book {
     @ManyToMany
     private List<BookCategory> categories;
 
+    public Book(){}
 
-    public Book() {
-    }
+
 
     public Book(ArrayList<Author> authors, String title, String summary, ArrayList<BookCategory> categories) {
         this.title = title;
@@ -36,6 +37,10 @@ public class Book {
         return authors;
     }
 
+    public void setAuthors(ArrayList<Author> authors) {
+        this.authors = authors;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
@@ -44,10 +49,6 @@ public class Book {
                 ", summary='" + summary + '\'' +
                 ", categories=" + categories +
                 '}';
-    }
-
-    public void setAuthors(ArrayList<Author> authors) {
-        this.authors = authors;
     }
 
     public String getTitle() {
@@ -62,6 +63,10 @@ public class Book {
         return summary;
     }
 
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
     public int getId() {
         return id;
     }
@@ -70,9 +75,6 @@ public class Book {
         this.id = id;
     }
 
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
 
     public List<BookCategory> getCategories() {
         return categories;

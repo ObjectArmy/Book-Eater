@@ -7,6 +7,7 @@ import objectArmy.bookEater.entity.book.BookRequest;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -32,11 +33,11 @@ public class UserProfile implements UserDetails {
     private String email;
     private String password;
     private String bio;
-    @ManyToMany (fetch = FetchType.EAGER)
+    @ManyToMany
     private List<BookCategory> favoriteCategories;
-    @OneToMany (fetch = FetchType.EAGER)
+    @OneToMany
     private List<BookOffer> bookOffers;
-    @OneToMany (fetch = FetchType.EAGER)
+    @OneToMany
     private List<BookRequest> outgoingBookRequests;
 
     public UserProfile() {
@@ -55,6 +56,7 @@ public class UserProfile implements UserDetails {
         this.favoriteCategories = new ArrayList<>();
     }
 
+    @Transactional
     public List<BookCategory> getFavoriteCategories() {
         return favoriteCategories;
     }
@@ -100,6 +102,7 @@ public class UserProfile implements UserDetails {
         this.dateOfBirth = dateOfBirth;
     }
 
+    @Transactional
     public List<BookOffer> getBookOffers() {
         return bookOffers;
     }
@@ -112,6 +115,7 @@ public class UserProfile implements UserDetails {
         this.bookOffers = bookOffers;
     }
 
+    @Transactional
     public List<BookRequest> getOutgoingBookRequests() {
         return outgoingBookRequests;
     }

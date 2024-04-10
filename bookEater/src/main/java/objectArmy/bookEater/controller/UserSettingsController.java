@@ -30,20 +30,17 @@ public class UserSettingsController {
     public String gotoUserSettings(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserProfile user = (UserProfile) authentication.getPrincipal();
-        model.addAttribute("bookCategories", this.bookCategoryService.getBookCategories());
-        model.addAttribute("user", user);
+        UserProfile loadedUser = userService.getUserById(user.getId());
+
+        model.addAttribute("bookCategories", bookCategoryService.getBookCategories());
+        model.addAttribute("user", loadedUser);
         return "profile/editProfileSettings";
     }
 
     @PostMapping("/settings")
     public String updateUserProfile(@ModelAttribute("user") UserProfile userProfile, Model model) {
         UserProfile user = (UserProfile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Long usersId = user.getId();
-        UserProfile updatedUser = userService.updateUser(userProfile,usersId);
-        Authentication newAuth = new UsernamePasswordAuthenticationToken(updatedUser, null, updatedUser.getAuthorities());
-
-        // Set the new Authentication object in the SecurityContext
-        SecurityContextHolder.getContext().setAuthentication(newAuth);
+        userService.updateUser(userProfile,user.getId());
         return "redirect:/settings";
     }
 }

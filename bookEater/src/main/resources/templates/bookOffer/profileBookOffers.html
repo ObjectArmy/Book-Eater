@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="engl">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
+
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <button class="btn btn-primary" th:href="@{/addBookOfferForm}">
+        Add a new Book Offer
+        <i class="bi bi-plus-circle ms-2"></i>
+    </button>
+</div>
+
+<div>
+    <ul th:each="bookOffer : ${bookOffers}">
+        <li>
+            <strong>Book:</strong>
+            <div>
+                <ul>
+                    <li th:text="${bookOffer.getOfferedBook().getTitle()}"></li>
+                    <ul th:each=" author : ${bookOffer.getOfferedBook().getAuthors()}">
+                        <li th:text="${author.getName()}"></li>
+                    </ul>
+                    <li th:text="${bookOffer.getOfferedBook().getSummary()}"></li>
+                    <ul th:each=" category : ${bookOffer.getOfferedBook().getCategories()}">
+                        <li th:text="${category.getName()}"></li>
+                    </ul>
+                </ul>
+            </div>
+            <br>
+            <strong>Post Date:</strong> <span th:text="${bookOffer.getPostDate()}"></span><br>
+            <strong>Description:</strong> <span th:text="${bookOffer.getOfferDescription()}"></span><br>
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>

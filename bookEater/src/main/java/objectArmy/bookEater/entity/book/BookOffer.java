@@ -2,6 +2,7 @@ package objectArmy.bookEater.entity.book;
 
 import jakarta.persistence.*;
 import objectArmy.bookEater.entity.user.UserProfile;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -73,6 +74,10 @@ public class BookOffer {
         return postDate;
     }
 
+    public void setPostDate(Date postDate) {
+        this.postDate = postDate;
+    }
+
     @Override
     public String toString() {
         return "BookOffer{" +
@@ -82,9 +87,5 @@ public class BookOffer {
                 ", requests=" + requests +
                 ", postDate=" + postDate +
                 '}';
-    }
-
-    public void setPostDate(Date postDate) {
-        this.postDate = postDate;
     }
 }

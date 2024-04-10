@@ -4,10 +4,12 @@ import objectArmy.bookEater.dao.BookCategoryRepository;
 import objectArmy.bookEater.entity.book.BookCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+
 public class BookCategoryService {
     @Autowired
     private BookCategoryRepository bookCategoryRepository;
