@@ -20,4 +20,8 @@ public class BookOfferService {
         bookService.saveBook(bookOffer.getOfferedBook());
         bookOfferRepository.save(bookOffer);
     }
+
+    public void deleteBookOfferById(Long id) {
+        bookOfferRepository.deleteById(id);
+    }
 }
