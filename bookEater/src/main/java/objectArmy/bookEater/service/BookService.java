@@ -19,4 +19,8 @@ public class BookService {
         return this.bookRepository.findAll();
     }
 
+    public void saveBook(Book book){
+        this.bookRepository.save(book);
+    }
+
 }

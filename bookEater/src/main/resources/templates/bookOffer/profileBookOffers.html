@@ -10,32 +10,36 @@
 </head>
 <body>
 <div>
-    <button class="btn btn-primary" th:href="@{/addBookOfferForm}">
+    <a class="btn btn-primary" th:href="@{/addBookOffer}">
         Add a new Book Offer
         <i class="bi bi-plus-circle ms-2"></i>
-    </button>
+    </a>
 </div>
 
 <div>
     <ul th:each="bookOffer : ${bookOffers}">
-        <li>
-            <strong>Book:</strong>
-            <div>
-                <ul>
-                    <li th:text="${bookOffer.getOfferedBook().getTitle()}"></li>
-                    <ul th:each=" author : ${bookOffer.getOfferedBook().getAuthors()}">
-                        <li th:text="${author.getName()}"></li>
+
+        <div class="card">
+            <li>
+                <strong>Book:</strong>
+                <div>
+                    <ul>
+                        <li th:text="${bookOffer.getOfferedBook().getTitle()}"></li>
+                        <ul th:each=" author : ${bookOffer.getOfferedBook().getAuthors()}">
+                            <li th:text="${author.getName()}"></li>
+                        </ul>
+                        <li th:text="${bookOffer.getOfferedBook().getSummary()}"></li>
+                        <ul th:each=" category : ${bookOffer.getOfferedBook().getCategories()}">
+                            <li th:text="${category.getName()}"></li>
+                        </ul>
                     </ul>
-                    <li th:text="${bookOffer.getOfferedBook().getSummary()}"></li>
-                    <ul th:each=" category : ${bookOffer.getOfferedBook().getCategories()}">
-                        <li th:text="${category.getName()}"></li>
-                    </ul>
-                </ul>
-            </div>
-            <br>
-            <strong>Post Date:</strong> <span th:text="${bookOffer.getPostDate()}"></span><br>
-            <strong>Description:</strong> <span th:text="${bookOffer.getOfferDescription()}"></span><br>
-        </li>
+                </div>
+                <br>
+                <strong>Post Date:</strong> <span th:text="${bookOffer.getPostDate()}"></span><br>
+                <strong>Description:</strong> <span th:text="${bookOffer.getOfferDescription()}"></span><br>
+            </li>
+        </div>
+
     </ul>
 </div>
 

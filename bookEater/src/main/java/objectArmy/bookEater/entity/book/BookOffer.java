@@ -17,9 +17,8 @@ public class BookOffer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne
+    @ManyToOne
     private UserProfile offeror;
-
     @OneToOne
     private Book offeredBook;
     private String offerDescription;
@@ -76,6 +75,14 @@ public class BookOffer {
 
     public void setPostDate(Date postDate) {
         this.postDate = postDate;
+    }
+
+    public String getOfferedBookTitle(){
+        return offeredBook.getTitle();
+    }
+
+    public void setOfferedBookTitle(String title){
+        offeredBook.setTitle(title);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package objectArmy.bookEater.service;
 
 import objectArmy.bookEater.dao.UserProfileRepository;
+import objectArmy.bookEater.entity.book.BookOffer;
 import objectArmy.bookEater.entity.user.UserProfile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,6 +21,8 @@ public class UserService implements UserDetailsService {
     @Autowired
     private UserProfileRepository userProfileRepository;
     @Autowired
+    private BookOfferService bookOfferService;
+    @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
     public List<UserProfile> getUsers() {
@@ -27,9 +30,21 @@ public class UserService implements UserDetailsService {
     }
 
     public void saveUser(UserProfile userToAdd) {
-        String hashedPassword = passwordEncoder.encode(userToAdd.getPassword());
-        userToAdd.setPassword(hashedPassword);
+        UserProfile existingUser = userProfileRepository.findUserById(userToAdd.getId());
+
+        if (existingUser == null) {
+            String hashedPassword = passwordEncoder.encode(userToAdd.getPassword());
+            userToAdd.setPassword(hashedPassword);
+        }
+
         userProfileRepository.save(userToAdd);
+    }
+
+    public void addBookOfferToUser(UserProfile user, BookOffer bookOffer) {
+        bookOffer.setOfferor(user);
+        bookOfferService.saveBookOffer(bookOffer);
+        user.addBookOffer(bookOffer);
+        userProfileRepository.save(user);
     }
 
     public void deleteUser(UserProfile userToDelete) {
