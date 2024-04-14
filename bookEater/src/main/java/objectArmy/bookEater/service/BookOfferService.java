@@ -5,6 +5,8 @@ import objectArmy.bookEater.entity.book.BookOffer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author Philip Athanasopoulos
  */
@@ -19,5 +21,9 @@ public class BookOfferService {
     public void saveBookOffer(BookOffer bookOffer) {
         bookService.saveBook(bookOffer.getOfferedBook());
         bookOfferRepository.save(bookOffer);
+    }
+
+    public List<BookOffer> getAllBookOffers(){
+        return bookOfferRepository.findAll();
     }
 }

@@ -58,8 +58,37 @@
     <h1 class="ms-5" th:text="'Welcome, ' + ${user.firstName}">Welcome</h1>
 </div>
 
+
+<!--</div>-->
+<div class="container">
+    <div class="row">
+        <div th:each="bookOffer : ${bookOffers}" class="col-md-4">
+            <div class="card p-3 bg-white">
+                <i class="fa fa-apple"></i>
+                <div class="about-product text-center mt-2">
+                    <div>
+                        <strong>
+                            <span class="mt-0" th:text="${bookOffer.getBookTitle()}"></span>
+                        </strong>
+                    </div>
+                </div>
+                <div class="stats mt-2">
+                    <div class="d-flex"><span>Offered by: </span><span
+                            th:text="${bookOffer.getOfferorFullName()}"></span></div>
+                    <div class="d-flex"><span>Description: </span><span
+                            th:text="${bookOffer.getOfferDescription()}"></span></div>
+                </div>
+                <div class="d-flex justify-content-between total font-weight-bold mt-4">
+                    <a class="btn btn-primary">Request</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script>
-    document.getElementById('logout-link').addEventListener('click', function(event) {
+    document.getElementById('logout-link').addEventListener('click', function (event) {
         if (!confirm('Are you sure you want to logout?')) {
             event.preventDefault();
         }

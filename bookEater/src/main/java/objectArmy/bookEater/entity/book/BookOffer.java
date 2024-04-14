@@ -2,7 +2,6 @@ package objectArmy.bookEater.entity.book;
 
 import jakarta.persistence.*;
 import objectArmy.bookEater.entity.user.UserProfile;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,7 +32,7 @@ public class BookOffer {
         this.offeror = offeror;
         this.offeredBook = offeredBook;
         this.offerDescription = offerDescription;
-        this.requests = new ArrayList<BookRequest>();
+        this.requests = new ArrayList<>();
         this.postDate = postDate;
     }
 
@@ -77,22 +76,24 @@ public class BookOffer {
         this.postDate = postDate;
     }
 
-    public String getOfferedBookTitle(){
+    public String getOfferedBookTitle() {
         return offeredBook.getTitle();
     }
 
-    public void setOfferedBookTitle(String title){
+    public String getBookTitle(){
+        return this.offeredBook.getTitle();
+    }
+
+    public String getOfferorFullName(){
+        return this.offeror.getFullName();
+    }
+
+    public void setOfferedBookTitle(String title) {
         offeredBook.setTitle(title);
     }
 
     @Override
     public String toString() {
-        return "BookOffer{" +
-                "offeror=" + offeror +
-                ", offeredBook=" + offeredBook +
-                ", offerDescription='" + offerDescription + '\'' +
-                ", requests=" + requests +
-                ", postDate=" + postDate +
-                '}';
+        return "BookOffer{" + "offeror=" + offeror.getFirstName() + ", offeredBook=" + offeredBook.toString() + ", offerDescription='" + offerDescription + '\'' + ", requests=" + requests + ", postDate=" + postDate + '}';
     }
 }

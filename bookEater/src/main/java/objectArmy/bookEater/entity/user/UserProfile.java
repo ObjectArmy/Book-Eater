@@ -197,4 +197,8 @@ public class UserProfile implements UserDetails {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public String getFullName(){
+        return this.firstName + " " + this.lastName;
+    }
 }

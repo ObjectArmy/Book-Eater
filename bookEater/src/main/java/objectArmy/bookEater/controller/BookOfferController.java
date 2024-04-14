@@ -1,12 +1,12 @@
 package objectArmy.bookEater.controller;
 
 import objectArmy.bookEater.dao.BookOfferRepository;
+import objectArmy.bookEater.entity.book.BookCategory;
 import objectArmy.bookEater.entity.book.BookOffer;
 import objectArmy.bookEater.entity.user.UserProfile;
-import objectArmy.bookEater.service.BookCategoryService;
-import objectArmy.bookEater.service.BookOfferService;
-import objectArmy.bookEater.service.BookService;
-import objectArmy.bookEater.service.UserService;
+import objectArmy.bookEater.service.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class BookOfferController {
 
+    private static final Logger logger = LoggerFactory.getLogger(BookOfferController.class);
+
     @Autowired
     UserService userService;
 
@@ -35,6 +37,9 @@ public class BookOfferController {
 
     @Autowired
     BookCategoryService bookCategoryService;
+
+    @Autowired
+    AuthorService authorService;
 
 
     @GetMapping("/profileBookOffers")
@@ -53,6 +58,7 @@ public class BookOfferController {
     public String gotoAddBookOffer(Model model) {
         model.addAttribute("bookOffer", new BookOffer());
         model.addAttribute("categories", bookCategoryService.getBookCategories());
+        model.addAttribute("authors", authorService.getAuthors());
         return "bookOffer/addBookOfferForm";
     }
 

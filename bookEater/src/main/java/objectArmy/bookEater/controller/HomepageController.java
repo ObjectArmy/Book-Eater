@@ -1,6 +1,8 @@
 package objectArmy.bookEater.controller;
 
 import objectArmy.bookEater.entity.user.UserProfile;
+import objectArmy.bookEater.service.BookOfferService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -12,11 +14,17 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 @Controller
 public class HomepageController {
+
+    @Autowired
+    BookOfferService bookOfferService;
+
+
     @GetMapping("/homepage")
     public String gotoHomePage(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserProfile user = (UserProfile) authentication.getPrincipal();
         model.addAttribute("user", user);
+        model.addAttribute("bookOffers", bookOfferService.getAllBookOffers());
         return "/homepage";
     }
 }
