@@ -19,5 +19,18 @@
         </ul>
     </div>
     <!-- ***** Drop_Down Book_Category code ENDS here ***** -->
+    <!-- ***** Display BookOffers with delete buttons STARTS here ***** -->
+    <div th:each="bookOffer : ${bookOffers}">
+        <div>
+            <p th:text="${bookOffer.title}"></p>
+            <p th:text="${bookOffer.author}"></p>
+            <!-- Add delete button -->
+            <form th:action="@{/deleteBookOffer}" method="post">
+                <input type="hidden" name="id" th:value="${bookOffer.id}" />
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        </div>
+    </div>
+    <!-- ***** Display BookOffers with delete buttons ENDS here ***** -->
     </body>
 </html>

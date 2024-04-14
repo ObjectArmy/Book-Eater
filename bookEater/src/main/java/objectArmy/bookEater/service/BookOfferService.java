@@ -26,4 +26,8 @@ public class BookOfferService {
     public List<BookOffer> getAllBookOffers(){
         return bookOfferRepository.findAll();
     }
+
+    public void deleteBookOfferById(Long id) {
+        bookOfferRepository.deleteById(id);
+    }
 }
