@@ -25,6 +25,10 @@ public class BookOffer {
     private List<BookRequest> requests;
     private Date postDate;
 
+    public Long getId() {
+        return id;
+    }
+
     public BookOffer() {
     }
 
