@@ -1,7 +1,6 @@
 package objectArmy.bookEater.controller;
 
 import objectArmy.bookEater.entity.user.UserProfile;
-import objectArmy.bookEater.service.BookOfferService;
 import objectArmy.bookEater.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -14,22 +13,19 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @author Philip Athanasopoulos
  */
 @Controller
-public class HomepageController {
-
-    @Autowired
-    BookOfferService bookOfferService;
+public class BookRequestController {
 
     @Autowired
     UserService userService;
 
-
-    @GetMapping("/homepage")
-    public String gotoHomePage(Model model) {
+    @GetMapping("/outgoingBookRequests")
+    public String getOutgoingBookRequests(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserProfile user = (UserProfile) authentication.getPrincipal();
         user = userService.getUserById(user.getId());
-        model.addAttribute("user", user);
-        model.addAttribute("bookOffers", bookOfferService.getAllBookOffers());
-        return "/homepage";
+
+        model.addAttribute("outgoingRequests", user.getOutgoingBookRequests());
+
+        return "profile/outgoingBookRequests";
     }
 }

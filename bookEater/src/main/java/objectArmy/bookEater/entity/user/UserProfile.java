@@ -1,6 +1,8 @@
 package objectArmy.bookEater.entity.user;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import objectArmy.bookEater.entity.book.BookCategory;
 import objectArmy.bookEater.entity.book.BookOffer;
 import objectArmy.bookEater.entity.book.BookRequest;
@@ -18,25 +20,35 @@ import java.util.List;
  * @author Philip Athanasopoulos
  */
 
+@Getter
 @Entity
 @Table(name = "user_profile")
 public class UserProfile implements UserDetails {
 
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Setter
     private String firstName;
+    @Setter
     private String lastName;
+    @Setter
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date dateOfBirth;
+    @Setter
     @Column(unique = true)
     private String email;
+    @Setter
     private String password;
+    @Setter
     private String bio;
     @ManyToMany
     private List<BookCategory> favoriteCategories;
+    @Setter
     @OneToMany
     private List<BookOffer> bookOffers;
+    @Setter
     @OneToMany
     private List<BookRequest> outgoingBookRequests;
 
@@ -56,76 +68,9 @@ public class UserProfile implements UserDetails {
         this.favoriteCategories = new ArrayList<>();
     }
 
-    @Transactional
-    public List<BookCategory> getFavoriteCategories() {
-        return favoriteCategories;
-    }
-
-    public void setFavoriteCategories(List<BookCategory> favoriteCategories) {
-        this.favoriteCategories = favoriteCategories;
-    }
-
-    public String getBio() {
-        return bio;
-    }
-
-    public void setBio(String bio) {
-        this.bio = bio;
-    }
-
     @Override
     public String toString() {
         return "UserProfile{" + "firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", dateOfBirth=" + dateOfBirth + ", email='" + email + '\'' + '}';
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public Date getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    @Transactional
-    public List<BookOffer> getBookOffers() {
-        return bookOffers;
-    }
-
-    public void setBookOffers(List<BookOffer> bookOffers) {
-        this.bookOffers = bookOffers;
-    }
-
-    public void setBookOffers(ArrayList<BookOffer> bookOffers) {
-        this.bookOffers = bookOffers;
-    }
-
-    @Transactional
-    public List<BookRequest> getOutgoingBookRequests() {
-        return outgoingBookRequests;
-    }
-
-    public void setOutgoingBookRequests(List<BookRequest> outgoingBookRequests) {
-        this.outgoingBookRequests = outgoingBookRequests;
-    }
-
-    public void setOutgoingBookRequests(ArrayList<BookRequest> outgoingBookRequests) {
-        this.outgoingBookRequests = outgoingBookRequests;
     }
 
     public void addBookOffer(BookOffer bookOffer) {
@@ -144,25 +89,9 @@ public class UserProfile implements UserDetails {
         this.outgoingBookRequests.remove(bookRequest);
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     @Override
@@ -188,14 +117,6 @@ public class UserProfile implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getFullName(){

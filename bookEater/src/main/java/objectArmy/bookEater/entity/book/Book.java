@@ -1,7 +1,9 @@
 package objectArmy.bookEater.entity.book;
 
 import jakarta.persistence.*;
-import org.springframework.transaction.annotation.Transactional;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,19 +13,25 @@ import java.util.List;
  */
 @Entity
 @Table(name = "book")
+@NoArgsConstructor
 public class Book {
+    @Setter
+    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Getter
     @ManyToMany
     private List<Author> authors;
+    @Getter
+    @Setter
     private String title;
+    @Setter
+    @Getter
     private String summary;
+    @Getter
     @ManyToMany
     private List<BookCategory> categories;
-
-    public Book(){}
-
 
 
     public Book(ArrayList<Author> authors, String title, String summary, ArrayList<BookCategory> categories) {
@@ -33,54 +41,8 @@ public class Book {
         this.categories = categories;
     }
 
-    public List<Author> getAuthors() {
-        return authors;
-    }
-
-    public void setAuthors(ArrayList<Author> authors) {
-        this.authors = authors;
-    }
-
     @Override
     public String toString() {
-        return "Book{" +
-                "authors=" + authors +
-                ", title='" + title + '\'' +
-                ", summary='" + summary + '\'' +
-                ", categories=" + categories +
-                '}';
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-
-    public List<BookCategory> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(ArrayList<BookCategory> categories) {
-        this.categories = categories;
+        return "Book{" + "authors=" + authors + ", title='" + title + '\'' + ", summary='" + summary + '\'' + ", categories=" + categories + '}';
     }
 }

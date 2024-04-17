@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="engl">
+<head>
+    <meta charset="UTF-8">
+    <title>My requests</title>
+</head>
+<body>
+
+<h1>Books you requested</h1>
+<br>
+<div th:each="outgoingRequest : ${outgoingRequests}">
+    <div>
+        <p th:text="'You (' + ${outgoingRequest.getRequestee().getFirstName()} + ') requested ' + ${outgoingRequest.getBookOffer().getBookTitle()} + ' book.'"></p>
+    </div>
+</div>
+
+</body>
+</html>

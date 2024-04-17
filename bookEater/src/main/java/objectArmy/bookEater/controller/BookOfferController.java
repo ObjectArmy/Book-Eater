@@ -1,8 +1,7 @@
 package objectArmy.bookEater.controller;
 
-import objectArmy.bookEater.dao.BookOfferRepository;
-import objectArmy.bookEater.entity.book.BookCategory;
 import objectArmy.bookEater.entity.book.BookOffer;
+import objectArmy.bookEater.entity.book.BookRequest;
 import objectArmy.bookEater.entity.user.UserProfile;
 import objectArmy.bookEater.service.*;
 import org.slf4j.Logger;
@@ -13,6 +12,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author Philip Athanasopoulos
@@ -37,6 +38,9 @@ public class BookOfferController {
 
     @Autowired
     AuthorService authorService;
+
+    @Autowired
+    BookRequestService bookRequestService;
 
 
     @GetMapping("/profileBookOffers")
@@ -73,6 +77,12 @@ public class BookOfferController {
     public String deleteBookOffer(@RequestParam("id") Long id){
         bookOfferService.deleteBookOfferById(id);
         return "redirect:/profileBookOffers";
+    }
+
+    @PostMapping("/requestBook/{userId}/{bookOfferId}")
+    public String requestBook(@PathVariable String userId, @PathVariable String bookOfferId){
+        bookOfferService.addBookRequest(Long.valueOf(userId),Long.valueOf(bookOfferId));
+        return "redirect:/homepage";
     }
 
 }

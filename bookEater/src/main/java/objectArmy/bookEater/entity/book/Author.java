@@ -1,37 +1,28 @@
 package objectArmy.bookEater.entity.book;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * @author Philip Athanasopoulos
  */
 @Entity
+@NoArgsConstructor
 @Table(name = "author")
 public class Author {
+    @Setter
+    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Getter
+    @Setter
     private String name;
 
-    public Author() {
-    }
     public Author(String name) {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 }

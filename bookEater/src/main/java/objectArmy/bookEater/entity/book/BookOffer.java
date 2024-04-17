@@ -1,6 +1,9 @@
 package objectArmy.bookEater.entity.book;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import objectArmy.bookEater.entity.user.UserProfile;
 
 import java.util.ArrayList;
@@ -12,21 +15,30 @@ import java.util.List;
  */
 @Entity
 @Table(name = "book_offer")
+@NoArgsConstructor
 public class BookOffer {
+    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Getter
+    @Setter
     @ManyToOne
     private UserProfile offeror;
+    @Getter
+    @Setter
     @OneToOne
     private Book offeredBook;
+    @Getter
+    @Setter
     private String offerDescription;
+    @Getter
     @OneToMany
     private List<BookRequest> requests;
+    @Getter
+    @Setter
     private Date postDate;
 
-    public BookOffer() {
-    }
 
     public BookOffer(UserProfile offeror, Book offeredBook, String offerDescription, Date postDate) {
         this.offeror = offeror;
@@ -36,64 +48,19 @@ public class BookOffer {
         this.postDate = postDate;
     }
 
-    public UserProfile getOfferor() {
-        return offeror;
-    }
-
-    public void setOfferor(UserProfile offeror) {
-        this.offeror = offeror;
-    }
-
-    public Book getOfferedBook() {
-        return offeredBook;
-    }
-
-    public void setOfferedBook(Book offeredBook) {
-        this.offeredBook = offeredBook;
-    }
-
-    public String getOfferDescription() {
-        return offerDescription;
-    }
-
-    public void setOfferDescription(String offerDescription) {
-        this.offerDescription = offerDescription;
-    }
-
-    public List<BookRequest> getRequests() {
-        return requests;
-    }
-
-    public void setRequests(ArrayList<BookRequest> requests) {
-        this.requests = requests;
-    }
-
-    public Date getPostDate() {
-        return postDate;
-    }
-
-    public void setPostDate(Date postDate) {
-        this.postDate = postDate;
-    }
-
-    public String getOfferedBookTitle() {
-        return offeredBook.getTitle();
-    }
-
-    public String getBookTitle(){
+    public String getBookTitle() {
         return this.offeredBook.getTitle();
     }
 
-    public String getOfferorFullName(){
+    public String getOfferorFullName() {
         return this.offeror.getFullName();
-    }
-
-    public void setOfferedBookTitle(String title) {
-        offeredBook.setTitle(title);
     }
 
     @Override
     public String toString() {
         return "BookOffer{" + "offeror=" + offeror.getFirstName() + ", offeredBook=" + offeredBook.toString() + ", offerDescription='" + offerDescription + '\'' + ", requests=" + requests + ", postDate=" + postDate + '}';
+    }
+    public void addRequest(BookRequest request) {
+        this.requests.add(request);
     }
 }

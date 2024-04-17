@@ -28,6 +28,9 @@
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/settings}">Settings</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/outgoingBookRequests}">Outgoing Book Requests</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
@@ -56,6 +59,7 @@
     </nav>
 
     <h1 class="ms-5" th:text="'Welcome, ' + ${user.firstName}">Welcome</h1>
+
 </div>
 
 
@@ -79,7 +83,9 @@
                             th:text="${bookOffer.getOfferDescription()}"></span></div>
                 </div>
                 <div class="d-flex justify-content-between total font-weight-bold mt-4">
-                    <a class="btn btn-primary">Request</a>
+                    <form th:action="@{'/requestBook/' + ${user.getId()} + '/' + ${bookOffer.getId()}}" method="post">
+                        <button class="btn btn-primary" type="submit">Request</button>
+                    </form>
                 </div>
             </div>
         </div>
