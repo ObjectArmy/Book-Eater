@@ -37,6 +37,16 @@
                 <br>
                 <strong>Post Date:</strong> <span th:text="${bookOffer.getPostDate()}"></span><br>
                 <strong>Description:</strong> <span th:text="${bookOffer.getOfferDescription()}"></span><br>
+
+                <!-- Delete button STARTS here -->
+                <form th:action="@{/deleteBookOffer}" method="post" onsubmit="return confirm('Are you sure you want to delete this BookOffer?')">
+                    <input type="hidden" name="_method" value="delete" />
+                    <input type="hidden" name="id"  />
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+                <!-- Delete button ENDS here -->
+
+
             </li>
         </div>
 
