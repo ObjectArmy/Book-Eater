@@ -9,22 +9,18 @@ import objectArmy.bookEater.entity.user.UserProfile;
 /**
  * @author Philip Athanasopoulos
  */
+@Setter
+@Getter
 @Entity
 @Table(name = "book_request")
 @NoArgsConstructor
 public class BookRequest {
-    @Setter
-    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Setter
-    @Getter
-    @OneToOne
+    @ManyToOne
     private UserProfile requestee;
 
-    @Setter
-    @Getter
     @OneToOne
     private BookOffer bookOffer;
 

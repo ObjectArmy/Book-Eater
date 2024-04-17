@@ -46,10 +46,10 @@ public class UserProfile implements UserDetails {
     @ManyToMany
     private List<BookCategory> favoriteCategories;
     @Setter
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BookOffer> bookOffers;
     @Setter
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BookRequest> outgoingBookRequests;
 
     public UserProfile() {

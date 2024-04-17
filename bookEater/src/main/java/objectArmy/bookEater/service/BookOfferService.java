@@ -58,6 +58,12 @@ public class BookOfferService {
     }
 
     public void deleteBookOfferById(Long id) {
+        BookOffer offer = bookOfferRepository.getById(id);
+        UserProfile offeror = offer.getOfferor();
+
+        offeror.removeBookOffer(offer);
+        userService.saveUser(offeror);
+
         bookOfferRepository.deleteById(id);
     }
 }

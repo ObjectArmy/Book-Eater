@@ -73,7 +73,7 @@ public class BookOfferController {
 
         return "redirect:/profileBookOffers";
     }
-    @DeleteMapping("/deleteBookOffer")
+    @PostMapping("/deleteBookOffer")
     public String deleteBookOffer(@RequestParam("id") Long id){
         bookOfferService.deleteBookOfferById(id);
         return "redirect:/profileBookOffers";
