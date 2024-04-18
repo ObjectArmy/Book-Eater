@@ -1,7 +1,5 @@
 package objectArmy.bookEater.controller;
 
-import objectArmy.bookEater.dao.AuthorRepository;
-import objectArmy.bookEater.dao.BookRepository;
 import objectArmy.bookEater.entity.book.Author;
 import objectArmy.bookEater.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +14,7 @@ public class AuthorController {
     private AuthorService authorService;
 
     @GetMapping("/authors")
-    public List<Author> getAuthors(){
+    public List<Author> getAuthors() {
         return this.authorService.getAuthors();
     }
 

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.stream.Collectors;
+
 /**
  * @author Philip Athanasopoulos
  */
@@ -29,7 +31,10 @@ public class HomepageController {
         UserProfile user = (UserProfile) authentication.getPrincipal();
         user = userService.getUserById(user.getId());
         model.addAttribute("user", user);
-        model.addAttribute("bookOffers", bookOfferService.getAllBookOffers());
+        UserProfile finalUser = user;
+        model.addAttribute("bookOffers", bookOfferService.getAllBookOffers().stream()
+                .filter(bookOffer -> !bookOffer.getOfferor().getId().equals(finalUser.getId()))
+                .collect(Collectors.toList()));
         return "/homepage";
     }
 }

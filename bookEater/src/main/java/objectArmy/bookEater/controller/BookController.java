@@ -1,6 +1,5 @@
 package objectArmy.bookEater.controller;
 
-import objectArmy.bookEater.dao.BookRepository;
 import objectArmy.bookEater.entity.book.Book;
 import objectArmy.bookEater.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;

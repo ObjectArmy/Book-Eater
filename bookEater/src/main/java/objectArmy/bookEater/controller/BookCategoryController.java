@@ -14,7 +14,7 @@ public class BookCategoryController {
     private BookCategoryService bookCategoryService;
 
     @GetMapping("/categories")
-    public List<BookCategory> getBookCategories(){
+    public List<BookCategory> getBookCategories() {
         return this.bookCategoryService.getBookCategories();
     }
 

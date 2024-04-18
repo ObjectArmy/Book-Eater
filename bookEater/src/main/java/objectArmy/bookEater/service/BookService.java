@@ -15,11 +15,11 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
-    public List<Book> getBooks(){
+    public List<Book> getBooks() {
         return this.bookRepository.findAll();
     }
 
-    public void saveBook(Book book){
+    public void saveBook(Book book) {
         this.bookRepository.save(book);
     }
 

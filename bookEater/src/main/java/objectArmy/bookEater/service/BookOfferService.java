@@ -1,5 +1,6 @@
 package objectArmy.bookEater.service;
 
+import lombok.extern.slf4j.Slf4j;
 import objectArmy.bookEater.dao.BookOfferRepository;
 import objectArmy.bookEater.entity.book.BookOffer;
 import objectArmy.bookEater.entity.book.BookRequest;
@@ -7,12 +8,14 @@ import objectArmy.bookEater.entity.user.UserProfile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
  * @author Philip Athanasopoulos
  */
+@Slf4j
 @Service
 public class BookOfferService {
     @Autowired
@@ -33,10 +36,12 @@ public class BookOfferService {
         bookOfferRepository.save(bookOffer);
     }
 
+
     public List<BookOffer> getAllBookOffers() {
         return bookOfferRepository.findAll();
     }
 
+    @Transactional
     public void addBookRequest(Long userId, Long bookOfferId) {
         UserProfile user = userService.getUserById(userId);
         BookOffer bookOffer = getBookOfferById(bookOfferId);
@@ -57,13 +62,25 @@ public class BookOfferService {
         return bookOfferRepository.findBookOfferById(id);
     }
 
+    @Transactional
     public void deleteBookOfferById(Long id) {
-        BookOffer offer = bookOfferRepository.getById(id);
+
+        BookOffer offer = bookOfferRepository.findBookOfferById(id);
         UserProfile offeror = offer.getOfferor();
+
 
         offeror.removeBookOffer(offer);
         userService.saveUser(offeror);
 
-        bookOfferRepository.deleteById(id);
+        //remove requests associated with the offer
+        for (BookRequest request : offer.getRequests()) {
+            UserProfile requestor = request.getRequestee();
+            requestor.removeOutgoingBookRequest(request);
+            userService.saveUser(requestor);
+            bookRequestService.deleteBookRequest(request);
+        }
+
+        //remove offer
+        bookOfferRepository.delete(offer);
     }
 }

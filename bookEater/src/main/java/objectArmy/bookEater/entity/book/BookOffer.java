@@ -60,7 +60,12 @@ public class BookOffer {
     public String toString() {
         return "BookOffer{" + "offeror=" + offeror.getFirstName() + ", offeredBook=" + offeredBook.toString() + ", offerDescription='" + offerDescription + '\'' + ", requests=" + requests + ", postDate=" + postDate + '}';
     }
+
     public void addRequest(BookRequest request) {
         this.requests.add(request);
+    }
+
+    public void removeRequest(BookRequest request) {
+        this.requests.remove(request);
     }
 }
