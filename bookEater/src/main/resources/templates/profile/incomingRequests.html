@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="engl">
+<head>
+    <meta charset="UTF-8">
+    <title>Incoming Requests</title>
+</head>
+<body>
+
+<h1>Incoming Book Requests</h1>
+<br>
+<div th:each="incomingRequest : ${incomingRequests}">
+    <div>
+        <!-- Display information about incoming book requests -->
+        <p th:text="'User (' + ${incomingRequest.getRequester().getFirstName()} + ') requested ' + ${incomingRequest.getBookRequested().getBookTitle()} + ' book.'"></p>
+        <!-- Add more details if needed -->
+    </div>
+</div>
+
+</body>
+</html>
