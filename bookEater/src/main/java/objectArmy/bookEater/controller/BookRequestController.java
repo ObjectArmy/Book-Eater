@@ -28,4 +28,18 @@ public class BookRequestController {
 
         return "profile/outgoingBookRequests";
     }
+
+    @GetMapping("/incomingBookRequests")
+    public String getIncomingBookRequests(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserProfile user = (UserProfile) authentication.getPrincipal();
+        user = userService.getUserById(user.getId());
+
+        model.addAttribute("incomingRequests", user.getIncomingBookRequests());
+
+        return "profile/incomingBookRequests";
+    }
+
+
+
 }
