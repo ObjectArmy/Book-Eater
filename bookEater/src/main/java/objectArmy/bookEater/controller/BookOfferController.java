@@ -1,5 +1,6 @@
 package objectArmy.bookEater.controller;
 
+import objectArmy.bookEater.entity.book.Author;
 import objectArmy.bookEater.entity.book.BookOffer;
 import objectArmy.bookEater.entity.user.UserProfile;
 import objectArmy.bookEater.service.*;
@@ -9,6 +10,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author Philip Athanasopoulos
@@ -58,10 +61,16 @@ public class BookOfferController {
     }
 
     @PostMapping("/addBookOffer")
-    public String addBookOffer(@ModelAttribute BookOffer bookOffer) {
+    public String addBookOffer(@ModelAttribute BookOffer bookOffer, @RequestParam("authors") String authors) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserProfile user = (UserProfile) authentication.getPrincipal();
         UserProfile loadedUser = userService.getUserById(user.getId());
+
+        System.out.println("Authors:");
+        List<String> authorNames = List.of(authors.split(","));
+        for (String authorName : authorNames) {
+            System.out.println(authorName);
+        }
 
         userService.addBookOfferToUser(loadedUser, bookOffer);
 

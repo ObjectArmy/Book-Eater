@@ -22,7 +22,7 @@ public class Book {
     private int id;
     @Getter
     @ManyToMany
-    private List<Author> authors;
+    private List<Author> authors = new ArrayList<>();
     @Getter
     @Setter
     private String title;
@@ -31,7 +31,7 @@ public class Book {
     private String summary;
     @Getter
     @ManyToMany
-    private List<BookCategory> categories;
+    private List<BookCategory> categories = new ArrayList<>();
 
 
     public Book(ArrayList<Author> authors, String title, String summary, ArrayList<BookCategory> categories) {
@@ -44,5 +44,10 @@ public class Book {
     @Override
     public String toString() {
         return "Book{" + "authors=" + authors + ", title='" + title + '\'' + ", summary='" + summary + '\'' + ", categories=" + categories + '}';
+    }
+
+
+    public void addAuthor(Author author) {
+        this.authors.add(author);
     }
 }

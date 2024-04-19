@@ -13,6 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class BookCategory {
     @Id
+    @Getter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Setter

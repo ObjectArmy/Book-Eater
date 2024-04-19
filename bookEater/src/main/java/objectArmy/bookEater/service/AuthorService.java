@@ -16,4 +16,11 @@ public class AuthorService {
         return this.authorRepository.findAll();
     }
 
+    public Author getAuthorByName(String authorName) {
+        return this.authorRepository.findByName(authorName);
+    }
+
+    public Author getAuthorById(Long id) {
+        return authorRepository.getReferenceById(id);
+    }
 }
