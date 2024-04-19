@@ -50,4 +50,8 @@ public class Book {
     public void addAuthor(Author author) {
         this.authors.add(author);
     }
+
+    public void addCategory(BookCategory bookCategory) {
+        this.categories.add(bookCategory);
+    }
 }

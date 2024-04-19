@@ -35,7 +35,7 @@ public class BookRequestController {
         UserProfile user = (UserProfile) authentication.getPrincipal();
         user = userService.getUserById(user.getId());
 
-        model.addAttribute("incomingRequests", user.getIncomingBookRequests());
+//        model.addAttribute("incomingRequests", user.getIncomingBookRequests());
 
         return "profile/incomingBookRequests";
     }
