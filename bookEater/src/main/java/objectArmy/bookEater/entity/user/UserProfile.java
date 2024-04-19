@@ -127,7 +127,9 @@ public class UserProfile implements UserDetails {
 
     public List<BookRequest> getIncomingBookRequests() {
         List<BookRequest> incomingBookRequests = new ArrayList<>();
-
+        for (BookOffer bookOffer : this.bookOffers) {
+            incomingBookRequests.addAll(bookOffer.getRequests());
+        }
         return incomingBookRequests;
     }
 }

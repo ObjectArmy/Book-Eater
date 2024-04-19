@@ -37,7 +37,7 @@ public class BookRequestController {
 
         model.addAttribute("incomingRequests", user.getIncomingBookRequests());
 
-        return "profile/incomingBookRequests";
+        return "profile/incomingRequests";
     }
 
 
