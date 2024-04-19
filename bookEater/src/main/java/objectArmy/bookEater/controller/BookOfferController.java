@@ -1,19 +1,14 @@
 package objectArmy.bookEater.controller;
 
 import objectArmy.bookEater.entity.book.BookOffer;
-import objectArmy.bookEater.entity.book.BookRequest;
 import objectArmy.bookEater.entity.user.UserProfile;
 import objectArmy.bookEater.service.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * @author Philip Athanasopoulos
@@ -22,7 +17,6 @@ import java.util.List;
 @Controller
 public class BookOfferController {
 
-    private static final Logger logger = LoggerFactory.getLogger(BookOfferController.class);
 
     @Autowired
     UserService userService;
@@ -64,7 +58,7 @@ public class BookOfferController {
     }
 
     @PostMapping("/addBookOffer")
-    public String addBookOffer(Model model, @ModelAttribute BookOffer bookOffer) {
+    public String addBookOffer(@ModelAttribute BookOffer bookOffer) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserProfile user = (UserProfile) authentication.getPrincipal();
         UserProfile loadedUser = userService.getUserById(user.getId());
@@ -73,15 +67,16 @@ public class BookOfferController {
 
         return "redirect:/profileBookOffers";
     }
+
     @PostMapping("/deleteBookOffer")
-    public String deleteBookOffer(@RequestParam("id") Long id){
+    public String deleteBookOffer(@RequestParam("id") Long id) {
         bookOfferService.deleteBookOfferById(id);
         return "redirect:/profileBookOffers";
     }
 
     @PostMapping("/requestBook/{userId}/{bookOfferId}")
-    public String requestBook(@PathVariable String userId, @PathVariable String bookOfferId){
-        bookOfferService.addBookRequest(Long.valueOf(userId),Long.valueOf(bookOfferId));
+    public String requestBook(@PathVariable String userId, @PathVariable String bookOfferId) {
+        bookOfferService.addBookRequest(Long.valueOf(userId), Long.valueOf(bookOfferId));
         return "redirect:/homepage";
     }
 

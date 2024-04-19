@@ -12,7 +12,7 @@ public class AuthorService {
     @Autowired
     private AuthorRepository authorRepository;
 
-    public List<Author> getAuthors(){
+    public List<Author> getAuthors() {
         return this.authorRepository.findAll();
     }
 

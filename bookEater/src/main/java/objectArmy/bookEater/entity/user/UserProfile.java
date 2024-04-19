@@ -3,13 +3,13 @@ package objectArmy.bookEater.entity.user;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import objectArmy.bookEater.entity.book.BookCategory;
 import objectArmy.bookEater.entity.book.BookOffer;
 import objectArmy.bookEater.entity.book.BookRequest;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -20,6 +20,7 @@ import java.util.List;
  * @author Philip Athanasopoulos
  */
 
+@Slf4j
 @Getter
 @Entity
 @Table(name = "user_profile")
@@ -46,10 +47,10 @@ public class UserProfile implements UserDetails {
     @ManyToMany
     private List<BookCategory> favoriteCategories;
     @Setter
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany
     private List<BookOffer> bookOffers;
     @Setter
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany
     private List<BookRequest> outgoingBookRequests;
 
     public UserProfile() {
@@ -86,7 +87,8 @@ public class UserProfile implements UserDetails {
     }
 
     public void removeOutgoingBookRequest(BookRequest bookRequest) {
-        this.outgoingBookRequests.remove(bookRequest);
+        if (this.outgoingBookRequests.remove(bookRequest)) log.info("Request removed from" + this.getFullName());
+        else log.error("Request not found in " + this.getFullName());
     }
 
     @Override
@@ -119,7 +121,7 @@ public class UserProfile implements UserDetails {
         return true;
     }
 
-    public String getFullName(){
+    public String getFullName() {
         return this.firstName + " " + this.lastName;
     }
 }

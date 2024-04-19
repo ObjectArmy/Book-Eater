@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
  * @author Philip Athanasopoulos
  */
 @Repository
-public interface BookRequestRepository extends JpaRepository<BookRequest , Long> {
+public interface BookRequestRepository extends JpaRepository<BookRequest, Long> {
 
 }
