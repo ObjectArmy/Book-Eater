@@ -2,10 +2,12 @@ package objectArmy.bookEater.service;
 
 import objectArmy.bookEater.dao.AuthorRepository;
 import objectArmy.bookEater.entity.book.Author;
+import objectArmy.bookEater.entity.book.BookCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AuthorService {
@@ -16,11 +18,17 @@ public class AuthorService {
         return this.authorRepository.findAll();
     }
 
-    public Author getAuthorByName(String authorName) {
-        return this.authorRepository.findByName(authorName);
+    public Optional<Author> getAuthorByName(String authorName) {
+        return Optional.ofNullable(authorRepository.findByName(authorName));
     }
 
     public Author getAuthorById(Long id) {
         return authorRepository.getReferenceById(id);
     }
+
+    public Author addAuthor(Author author) {
+        return authorRepository.save(author);
+    }
+
+
 }
