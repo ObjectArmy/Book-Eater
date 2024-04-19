@@ -5,6 +5,8 @@ import objectArmy.bookEater.entity.book.BookRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author Philip Athanasopoulos
  */
@@ -23,6 +25,10 @@ public class BookRequestService {
 
     public void deleteBookRequest(BookRequest request) {
         bookRequestRepository.delete(request);
+    }
+
+    public List<BookRequest> getUsersReceivedRequests(Long id) {
+        return bookRequestRepository.findByRequesteeId(id);
     }
 
 }

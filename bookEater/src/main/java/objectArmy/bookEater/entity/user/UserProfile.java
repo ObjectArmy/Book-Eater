@@ -124,4 +124,10 @@ public class UserProfile implements UserDetails {
     public String getFullName() {
         return this.firstName + " " + this.lastName;
     }
+
+    public List<BookRequest> getIncomingBookRequests() {
+        List<BookRequest> incomingBookRequests = new ArrayList<>();
+
+        return incomingBookRequests;
+    }
 }
