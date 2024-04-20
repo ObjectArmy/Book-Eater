@@ -9,7 +9,7 @@
 </head>
 <body>
 <div>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
             <a class="navbar-brand " href="#">BookEater</a>
             <button class="navbar-toggler " type="button" data-bs-toggle="collapse"
@@ -20,16 +20,22 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav  mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active text-primary" aria-current="page" href="#">Home</a>
+                        <a class="nav-link active text-primary" aria-current="page">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active text-primary" aria-current="page" th:href="@{/profileBookOffers}">BookOffers</a>
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            BookOffers
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" th:href="@{/profileBookOffers}">My book offers</a></li>
+                            <li><a class="dropdown-item" th:href="@{/incomingBookRequests}">My incoming requests</a>
+                            </li>
+                            <li><a class="dropdown-item" th:href="@{/outgoingBookRequests}">Books I requested</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/settings}">Settings</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/outgoingBookRequests}">Outgoing Book Requests</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -37,8 +43,6 @@
                             Actions
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Add book offer</a></li>
-                            <li><a class="dropdown-item" href="#">View book offers</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
@@ -49,7 +53,7 @@
                     <li>
                         <form class="d-flex">
                             <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success" type="submit">Search</button>
+                            <button class="btn btn-outline-dark" type="submit">Search</button>
                         </form>
                     </li>
 

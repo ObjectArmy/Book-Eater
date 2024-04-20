@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -41,6 +42,7 @@ public class UserService implements UserDetailsService {
 
     public void addBookOfferToUser(UserProfile user, BookOffer bookOffer) {
         bookOffer.setOfferor(user);
+        bookOffer.setPostDate(new Date());
         bookOfferService.saveBookOffer(bookOffer);
         user.addBookOffer(bookOffer);
         userProfileRepository.save(user);

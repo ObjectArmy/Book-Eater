@@ -2,7 +2,6 @@ package objectArmy.bookEater.service;
 
 import objectArmy.bookEater.dao.AuthorRepository;
 import objectArmy.bookEater.entity.book.Author;
-import objectArmy.bookEater.entity.book.BookCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,5 +29,14 @@ public class AuthorService {
         return authorRepository.save(author);
     }
 
-
+    public Author getAuthorOrElseCreate(String authorName) {
+        return getAuthorByName(authorName).orElseGet(() -> {
+            Author author = new Author();
+            author.setName(authorName);
+            return addAuthor(author);
+        });
+    }
 }
+
+
+

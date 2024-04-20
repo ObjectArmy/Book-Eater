@@ -25,4 +25,12 @@ public class BookCategoryService {
     public Optional<BookCategory> getBookCategoryByName(String categoryName) {
         return Optional.ofNullable(bookCategoryRepository.findByName(categoryName));
     }
+
+    public BookCategory getBookCategoryOrElseCreate(String categoryName) {
+        return getBookCategoryByName(categoryName).orElseGet(() -> {
+            BookCategory category = new BookCategory();
+            category.setName(categoryName);
+            return addBookCategory(category);
+        });
+    }
 }
