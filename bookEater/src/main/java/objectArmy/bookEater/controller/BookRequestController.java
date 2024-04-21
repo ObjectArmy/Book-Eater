@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  * @author Philip Athanasopoulos
@@ -40,6 +41,15 @@ public class BookRequestController {
         return "profile/incomingRequests";
     }
 
+    @GetMapping("/incomingRequest/{requestId}")
+    public String getIncomingRequest(@PathVariable Long requestId, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserProfile user = (UserProfile) authentication.getPrincipal();
+        user = userService.getUserById(user.getId());
 
+        model.addAttribute("incomingRequest", user.getRequestById(requestId));
+
+        return "profile/incomingRequest";
+    }
 
 }

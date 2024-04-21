@@ -132,4 +132,11 @@ public class UserProfile implements UserDetails {
         }
         return incomingBookRequests;
     }
+
+    public BookRequest getRequestById(Long requestId) {
+        for (BookRequest request : this.getIncomingBookRequests()) {
+            if (request.getId().equals(requestId)) return request;
+        }
+        return null;
+    }
 }
