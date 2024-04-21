@@ -14,7 +14,8 @@
     <div>
         <!-- Display information about incoming book requests -->
         <p th:text="'User (' + ${incomingRequest.getRequestee().getFirstName()} + ') requested ' + ${incomingRequest.getBookOffer().getBookTitle()} + ' book.'"></p>
-        <!-- Add more details if needed -->
+        <!-- View User button -->
+        <a th:href="@{'/incomingRequest/' + ${incomingRequest.id}}" class="btn btn-primary">View User</a>
     </div>
 </div>
 
