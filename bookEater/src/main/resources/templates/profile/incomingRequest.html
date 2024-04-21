@@ -19,6 +19,11 @@
     <p th:text="'First Name: ' + ${request.getRequestee().getFirstName()}"></p>
     <p th:text="'Last Name: ' + ${request.getRequestee().getLastName()}"></p>
     <p th:text="'Email: ' + ${request.getRequestee().getEmail()}"></p>
+
+    <!-- Accept Button Form -->
+    <form th:action="@{/acceptRequest}" method="post" style="display: inline;">
+        <button type="submit" class="btn btn-success">Accept</button>
+    </form>
 </div>
 
 </body>
