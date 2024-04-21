@@ -8,17 +8,16 @@
 </head>
 <body>
 
-<!--<div th:replace="components/navbar :: bookEaterNavBar"></div>-->
-
-<div th:with="request=${incomingRequest}">
+<div th:replace="components/navbar :: bookEaterNavBar"></div>
+<div class="ms-3">
     <h2>Request Information</h2>
-    <p th:text="'Request ID: ' + ${request.getId()}"></p>
-    <p th:text="'Book Title: ' + ${request.getBookOffer().getBookTitle()}"></p>
+    <p th:text="'Request ID: ' + ${incomingRequest.getId()}"></p>
+    <p th:text="'Book Title: ' + ${incomingRequest.getBookOffer().getBookTitle()}"></p>
 
     <h2>Requestee Information</h2>
-    <p th:text="'First Name: ' + ${request.getRequestee().getFirstName()}"></p>
-    <p th:text="'Last Name: ' + ${request.getRequestee().getLastName()}"></p>
-    <p th:text="'Email: ' + ${request.getRequestee().getEmail()}"></p>
+    <p th:text="'First Name: ' + ${incomingRequest.getRequestee().getFirstName()}"></p>
+    <p th:text="'Last Name: ' + ${incomingRequest.getRequestee().getLastName()}"></p>
+    <p th:text="'Email: ' + ${incomingRequest.getRequestee().getEmail()}"></p>
 </div>
 
 </body>
