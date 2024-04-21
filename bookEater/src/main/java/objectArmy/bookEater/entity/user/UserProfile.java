@@ -53,6 +53,11 @@ public class UserProfile implements UserDetails {
     @OneToMany
     private List<BookRequest> outgoingBookRequests;
 
+    @Getter
+    @Setter
+    @ElementCollection
+    private List<String> notifications;
+
     public UserProfile() {
         this.bookOffers = new ArrayList<>();
         this.outgoingBookRequests = new ArrayList<>();
@@ -138,5 +143,10 @@ public class UserProfile implements UserDetails {
             if (request.getId().equals(requestId)) return request;
         }
         return null;
+    }
+
+    public void sentNotification(String notification){
+        this.notifications.add(notification);
+
     }
 }

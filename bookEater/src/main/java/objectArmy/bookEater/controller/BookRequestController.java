@@ -1,15 +1,14 @@
 package objectArmy.bookEater.controller;
 
 import objectArmy.bookEater.entity.user.UserProfile;
+import objectArmy.bookEater.service.BookRequestService;
 import objectArmy.bookEater.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Philip Athanasopoulos
@@ -19,6 +18,9 @@ public class BookRequestController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    BookRequestService bookRequestService;
 
     @GetMapping("/outgoingBookRequests")
     public String getOutgoingBookRequests(Model model) {
@@ -51,6 +53,17 @@ public class BookRequestController {
         model.addAttribute("incomingRequest", user.getRequestById(requestId));
 
         return "profile/incomingRequest";
+    }
+
+    @PostMapping("/acceptRequest")
+    public String acceptRequest(@RequestParam Long requestId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserProfile user = (UserProfile) authentication.getPrincipal();
+        user = userService.getUserById(user.getId());
+
+        bookRequestService.acceptRequest(requestId);
+
+        return "redirect:/incomingBookRequests";
     }
 
 }

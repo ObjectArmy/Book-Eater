@@ -37,4 +37,14 @@ public class HomepageController {
                 .collect(Collectors.toList()));
         return "/homepage";
     }
+
+    @GetMapping("/notifications")
+    public String gotoNotificationsPage(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserProfile user = (UserProfile) authentication.getPrincipal();
+        user = userService.getUserById(user.getId());
+        model.addAttribute("user", user);
+        model.addAttribute("notifications", user.getNotifications());
+        return "profile/notifications";
+    }
 }
