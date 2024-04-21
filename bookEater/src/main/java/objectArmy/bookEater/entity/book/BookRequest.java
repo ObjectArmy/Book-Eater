@@ -21,7 +21,7 @@ public class BookRequest {
     @ManyToOne
     private UserProfile requestee;
 
-    @OneToOne
+    @ManyToOne
     private BookOffer bookOffer;
 
     public BookRequest(UserProfile requestee, BookOffer bookOffer) {

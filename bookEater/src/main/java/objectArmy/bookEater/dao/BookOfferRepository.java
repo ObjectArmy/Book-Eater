@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BookOfferRepository extends JpaRepository<BookOffer, Long> {
     BookOffer findBookOfferById(Long id);
+
 }

@@ -54,11 +54,12 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests((authz) -> authz
                 .requestMatchers("/", "/login", "/register/**").permitAll()
-                .requestMatchers("/users/**").authenticated() // ??? ZAS is this needed ??? - changed from account to user
+                .requestMatchers("/users/**").authenticated()
+                .requestMatchers("/images/*").permitAll()
                 .anyRequest().authenticated());
 
         http.formLogin(fL -> fL.loginPage("/login")
-                .failureUrl("/login?error=true")//"/login?error=true"
+                .failureUrl("/login?error=true")
                 .successHandler(customSuccessHandler)
                 .usernameParameter("email")
                 .passwordParameter("password"));

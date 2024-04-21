@@ -41,7 +41,7 @@ public class RegisterController {
         // Everything's fine? Save the user
         userService.saveUser(user);
         model.addAttribute("success", true);
-        return "register/registerForm";
+        return "redirect:register/registerForm";
     }
 
 }

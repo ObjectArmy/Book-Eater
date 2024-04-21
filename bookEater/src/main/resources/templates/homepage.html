@@ -9,58 +9,9 @@
 </head>
 <body>
 <div>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container-fluid">
-            <a class="navbar-brand " href="#">BookEater</a>
-            <button class="navbar-toggler " type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon "></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav  mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active text-primary" aria-current="page">Home</a>
-                    </li>
-                    <li class="nav-item dropdown active">
-                        <a class="nav-link dropdown-toggle" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            BookOffers
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" th:href="@{/profileBookOffers}">My book offers</a></li>
-                            <li><a class="dropdown-item" th:href="@{/incomingBookRequests}">My incoming requests</a>
-                            </li>
-                            <li><a class="dropdown-item" th:href="@{/outgoingBookRequests}">Books I requested</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/settings}">Settings</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            Actions
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item " th:href="@{/logout}" id="logout-link">Logout</a></li>
-                        </ul>
-                    </li>
+    <div th:replace="components/navbar :: bookEaterNavBar">
 
-                    <li>
-                        <form class="d-flex">
-                            <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-dark" type="submit">Search</button>
-                        </form>
-                    </li>
-
-                </ul>
-            </div>
-        </div>
-    </nav>
+    </div>
 
     <h1 class="ms-5" th:text="'Welcome, ' + ${user.firstName}">Welcome</h1>
 
@@ -81,10 +32,20 @@
                     </div>
                 </div>
                 <div class="stats mt-2">
-                    <div class="d-flex"><span>Offered by: </span><span
-                            th:text="${bookOffer.getOfferorFullName()}"></span></div>
-                    <div class="d-flex"><span>Description: </span><span
-                            th:text="${bookOffer.getOfferDescription()}"></span></div>
+                    <div class="d-flex">
+                        <span>
+                        <b> Offered by: </b>
+                        </span>
+                        <span class="ps-2" th:text="${bookOffer.getOfferorFullName()}">
+                        </span>
+                    </div>
+                    <div class="d-flex">
+                        <span>
+                            <b> Description: </b
+                            ></span>
+                        <span class="ps-2" th:text="${bookOffer.getOfferDescription()}">
+                        </span>
+                    </div>
                 </div>
                 <div class="d-flex justify-content-between total font-weight-bold mt-4">
                     <form th:action="@{'/requestBook/' + ${user.getId()} + '/' + ${bookOffer.getId()}}" method="post">

@@ -18,7 +18,6 @@ public class BookRequestService {
     @Autowired
     BookRequestRepository bookRequestRepository;
 
-
     public void saveBookRequest(BookRequest bookRequest) {
         bookRequestRepository.save(bookRequest);
     }
