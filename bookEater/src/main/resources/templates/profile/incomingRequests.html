@@ -7,19 +7,22 @@
     <title>Incoming Requests</title>
 </head>
 <body>
-<div th:replace="components/navbar :: bookEaterNavBar"></div>
+<div th:replace="~{components/navbar :: bookEaterNavBar}"></div>
 <h1>Incoming Book Requests</h1>
 <br>
-<div th:each="incomingRequest : ${incomingRequests}">
-    <div>
-        <!-- Display information about incoming book requests -->
-        <p th:text="'User (' + ${incomingRequest.getRequestee().getFirstName()} + ') requested ' + ${incomingRequest.getBookOffer().getBookTitle()} + ' book.'"></p>
-        <!-- View User button -->
-        <a th:href="@{'/incomingRequest/' + ${incomingRequest.id}}" class="btn btn-primary">View User</a>
+<div class="ms-4">
+    <div th:each="incomingRequest : ${incomingRequests}">
+        <div class="d-flex pt-4">
+            <!-- Display information about incoming book requests -->
+            <p th:text="'User (' + ${incomingRequest.getRequestee().getFirstName()} + ') requested ' + ${incomingRequest.getBookOffer().getBookTitle()} + ' book.'"></p>
+            <!-- View User button -->
+            <a th:href="@{'/incomingRequest/' + ${incomingRequest.id}}" class="btn btn-primary ms-3">View User</a>
+        </div>
     </div>
 
 
 </div>
+
 
 </body>
 </html>
