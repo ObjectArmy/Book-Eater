@@ -64,8 +64,11 @@ public class BookOfferServiceTest {
         bookOfferService.addBookRequest(user2.getId(), offerId);
         bookOfferService.deleteBookOfferById(offerId);
 
-        BookOffer deletedOffer = bookOfferService.getBookOfferById(offerId);
-        assertNull(deletedOffer);
+
+
+        assertNull(bookOfferService.getBookOfferById(offerId));
+        assertNull(user2.getOutgoingBookRequests().get(0));
+        assertNull(user1.getBookOffers().get(0));
     }
 
 
