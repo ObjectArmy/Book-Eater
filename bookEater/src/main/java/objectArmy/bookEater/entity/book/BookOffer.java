@@ -58,7 +58,7 @@ public class BookOffer {
 
     @Override
     public String toString() {
-        return "BookOffer{" + "offeror=" + offeror.getFirstName() + ", offeredBook=" + offeredBook.toString() + ", offerDescription='" + offerDescription + '\'' + ", requests=" + requests + ", postDate=" + postDate + '}';
+        return "BookOffer{" + "id=" + this.id + "offeror=" + offeror.getFirstName() + ", offeredBook=" + offeredBook.toString() + ", offerDescription='" + offerDescription + '\'' + ", requests=" + requests + ", postDate=" + postDate + '}';
     }
 
     public void addRequest(BookRequest request) {

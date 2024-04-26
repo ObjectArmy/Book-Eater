@@ -44,7 +44,6 @@ public class HomepageController {
         UserProfile user = (UserProfile) authentication.getPrincipal();
         user = userService.getUserById(user.getId());
         model.addAttribute("user", user);
-        model.addAttribute("notifications", user.getNotifications());
         return "profile/notifications";
     }
 }

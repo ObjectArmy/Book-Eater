@@ -11,7 +11,7 @@
 
 <h1>Notifications</h1>
 
-<div th:each="notification : ${notifications}">
+<div th:each="notification : ${user.getNotifications()}">
     <h1 th:text="${notification.toString()}"></h1>
 </div>
 </body>

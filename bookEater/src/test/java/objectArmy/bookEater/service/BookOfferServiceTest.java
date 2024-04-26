@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Philip Athanasopoulos
@@ -64,11 +65,12 @@ public class BookOfferServiceTest {
         bookOfferService.addBookRequest(user2.getId(), offerId);
         bookOfferService.deleteBookOfferById(offerId);
 
-
+        user1 = userService.getUserById(user1.getId());
+        user2 = userService.getUserById(user2.getId());
 
         assertNull(bookOfferService.getBookOfferById(offerId));
-        assertNull(user2.getOutgoingBookRequests().get(0));
-        assertNull(user1.getBookOffers().get(0));
+        assertNull(user1.getBookOffers());
+        assertTrue(user2.getOutgoingBookRequests().isEmpty());
     }
 
 

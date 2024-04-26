@@ -31,19 +31,18 @@
                                     <textarea class="form-control" id="textAreaExample6" rows="3" th:field="*{bio}"
                                               th:value="${user.bio}"></textarea>
                                     </p>
-                                    <div class="btn-group">
-                                        <select class="form-control" name="category">
-                                            <option value="0">select category</option>
-                                            <option th:each="category : ${bookCategories}" th:value="${category.name}"
-                                                    th:text="${category.name}"></option>
-                                        </select>
-                                    </div>
-                                    <div class="btn-group">
-                                        <select class="form-control">
-                                            <option value="0">current categories</option>
-                                            <option th:each="category : ${user.favoriteCategories}"
-                                                    th:value="${category.name}" th:text="${category.name}"></option>
-                                        </select>
+                                    <div>
+                                        <label>Your Categories:</label>
+                                        <br>
+                                        <div>
+                                            <label for="categories">Selected Categories: </label>
+                                            <select name="categories" multiple class="form-control">
+                                                <option th:each="category : ${bookCategories}" th:value="${category.id}"
+                                                        th:text="${category.name}"></option>
+                                            </select>
+
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -102,5 +101,40 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.querySelector('select[name="categories"]').addEventListener('change', function (event) {
+        // Get the selected category
+        var selectedOption = this.options[this.selectedIndex];
+        var categoryName = selectedOption.text.replace(' ✓', '');
+
+        // Get the label for categories
+        var label = document.querySelector('label[for="categories"]');
+
+        // Get the current categories
+        var currentCategories = label.getAttribute('data-value') ? label.getAttribute('data-value').split(', ') : [];
+
+        // Check if the category is already selected
+        var index = currentCategories.indexOf(categoryName);
+        if (index !== -1) {
+            // If the category is already selected, remove it
+            currentCategories.splice(index, 1);
+            //remove the tik mark from the selected category
+            selectedOption.textContent.replace(' ✓', '')
+        } else {
+            // Otherwise, add the category
+            currentCategories.push(categoryName);
+        }
+
+        // Update the data-value attribute and the visible text of the label
+        label.setAttribute('data-value', currentCategories.join(', '));
+        label.textContent = 'Selected Categories: ' + currentCategories.join(', ');
+
+        // add a tik mark to the selected category
+        selectedOption.textContent = categoryName + ' ✓';
+    });
+</script>
+
+
 </body>
 </html>
