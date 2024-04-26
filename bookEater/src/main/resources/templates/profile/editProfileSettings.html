@@ -32,16 +32,13 @@
                                               th:value="${user.bio}"></textarea>
                                     </p>
                                     <div>
-                                        <label>Your Categories:</label>
-                                        <br>
+                                        <hr>
                                         <div>
-                                            <label for="categories">Selected Categories: </label>
+                                            <label for="categories">Your Categories:</label>
                                             <select name="categories" multiple class="form-control">
                                                 <option th:each="category : ${bookCategories}" th:value="${category.id}"
-                                                        th:text="${category.name}"></option>
+                                                        th:text="${#lists.contains(user.favoriteCategories, category) ? category.name + ' ✓' : category.name}"></option>
                                             </select>
-
-
                                         </div>
                                     </div>
                                 </div>
@@ -75,11 +72,11 @@
                             </div>
                             <div class="form-group">
                                 <label>New Password</label>
-                                <input type="password" class="form-control" th:field="*{password}"/>
+                                <input type="password" class="form-control" th:field="*{password}" />
                             </div>
                             <div class="form-group">
                                 <label>Confirm Password</label>
-                                <input type="password" class="form-control"/>
+                                <input type="password" class="form-control" />
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -112,7 +109,7 @@
         var label = document.querySelector('label[for="categories"]');
 
         // Get the current categories
-        var currentCategories = label.getAttribute('data-value') ? label.getAttribute('data-value').split(', ') : [];
+        var currentCategories = label.getAttribute('values') ? label.getAttribute('values').split(', ') : [];
 
         // Check if the category is already selected
         var index = currentCategories.indexOf(categoryName);
@@ -120,21 +117,43 @@
             // If the category is already selected, remove it
             currentCategories.splice(index, 1);
             //remove the tik mark from the selected category
-            selectedOption.textContent.replace(' ✓', '')
+            selectedOption.textContent = categoryName;
         } else {
             // Otherwise, add the category
             currentCategories.push(categoryName);
+            // add a tik mark to the selected category
+            selectedOption.textContent = categoryName + ' ✓';
         }
 
         // Update the data-value attribute and the visible text of the label
-        label.setAttribute('data-value', currentCategories.join(', '));
-        label.textContent = 'Selected Categories: ' + currentCategories.join(', ');
-
-        // add a tik mark to the selected category
-        selectedOption.textContent = categoryName + ' ✓';
+        label.setAttribute('values', currentCategories.join(', '));
+        label.textContent = "Your Categories:" + currentCategories.join(', ');
     });
-</script>
 
+    window.onload = function () {
+        // Get the select element
+        var select = document.querySelector('select[name="categories"]');
+
+        // Get the user's categories from the select element
+        var categories = Array.from(select.options)
+            .filter(option => option.text.includes(' ✓'))
+            .map(option => option.text.replace(' ✓', ''));
+
+        // Join the categories into a string separated by commas
+        var categoriesText = categories.join(', ');
+
+        // Get the label for categories
+        var label = document.querySelector('label[for="categories"]');
+
+        //add all the categories to the data-value attribute of the label
+        label.setAttribute('values', categoriesText);
+
+        // Set the categories text as the text of the label
+        label.textContent = 'Your Categories:' + categoriesText;
+    };
+
+
+</script>
 
 </body>
 </html>
