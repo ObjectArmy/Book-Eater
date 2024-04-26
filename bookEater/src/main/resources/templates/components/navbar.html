@@ -51,8 +51,8 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <form class="d-flex">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <form class="d-flex" th:action="@{/search}">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="userQuery">
                             <button class="btn btn-outline-primary" type="submit">Search</button>
                         </form>
                     </li>

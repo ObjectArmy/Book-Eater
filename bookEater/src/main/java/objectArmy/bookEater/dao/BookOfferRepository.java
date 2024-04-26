@@ -15,7 +15,7 @@ import java.util.List;
 public interface BookOfferRepository extends JpaRepository<BookOffer, Long> {
     BookOffer findBookOfferById(Long id);
 
-    @Query(value = "select * from book tempBook where tempBook.title like %:userQuery%", nativeQuery = true)
+    @Query(value = "select offer from BookOffer offer join offer.offeredBook book where book.title like %:userQuery%")
     List<BookOffer> findByTitle(@Param("userQuery") String userQuery);
 
 }

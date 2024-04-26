@@ -54,6 +54,44 @@
                 </div>
             </div>
         </div>
+
+
+
+        <div th:each="bookOffer : ${searchResults}" class="col-md-4">
+            <div class="card p-3 bg-white">
+                <i class="fa fa-apple"></i>
+                <div class="about-product text-center mt-2">
+                    <div>
+                        <strong>
+                            <span class="mt-0" th:text="${bookOffer.getBookTitle()}"></span>
+                        </strong>
+                    </div>
+                </div>
+                <div class="stats mt-2">
+                    <div class="d-flex">
+                        <span>
+                        <b> Offered by: </b>
+                        </span>
+                        <span class="ps-2" th:text="${bookOffer.getOfferorFullName()}">
+                        </span>
+                    </div>
+                    <div class="d-flex">
+                        <span>
+                            <b> Description: </b
+                            ></span>
+                        <span class="ps-2" th:text="${bookOffer.getOfferDescription()}">
+                        </span>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between total font-weight-bold mt-4">
+                    <form th:action="@{'/requestBook/' + ${user.getId()} + '/' + ${bookOffer.getId()}}" method="post">
+                        <button class="btn btn-primary" type="submit">Request</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 </div>
 
