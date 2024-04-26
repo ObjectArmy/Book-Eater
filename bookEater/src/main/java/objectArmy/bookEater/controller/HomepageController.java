@@ -1,5 +1,6 @@
 package objectArmy.bookEater.controller;
 
+import objectArmy.bookEater.entity.search.Searcher;
 import objectArmy.bookEater.entity.user.UserProfile;
 import objectArmy.bookEater.service.BookOfferService;
 import objectArmy.bookEater.service.UserService;
@@ -24,6 +25,12 @@ public class HomepageController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    private Searcher search;
+
+    private void setSearchMethod(Searcher searchMethod){
+        this.search = searchMethod;
+    }
 
     @GetMapping("/homepage")
     public String gotoHomePage(Model model) {
