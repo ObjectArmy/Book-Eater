@@ -83,4 +83,8 @@ public class BookOfferService {
         //remove offer
         bookOfferRepository.delete(offer);
     }
+    // Find by bookTitle
+    public List<BookOffer> searchByTitle(String userQuery){
+        return this.bookOfferRepository.findByTitle(userQuery);
+    }
 }

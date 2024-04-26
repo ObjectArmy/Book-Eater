@@ -1,5 +1,6 @@
 package objectArmy.bookEater.controller;
 
+import objectArmy.bookEater.entity.book.BookOffer;
 import objectArmy.bookEater.entity.search.Searcher;
 import objectArmy.bookEater.entity.user.UserProfile;
 import objectArmy.bookEater.service.BookOfferService;
@@ -10,7 +11,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -53,4 +57,17 @@ public class HomepageController {
         model.addAttribute("user", user);
         return "profile/notifications";
     }
+
+    @RequestMapping("/homepage")
+    public String search(Model model, String userQuery){
+        if(userQuery!=null){
+            List<BookOffer> bookOfferList = bookOfferService.searchByTitle(userQuery);
+            model.addAttribute("searchResults", bookOfferList);
+        }else {
+            List<BookOffer> emptyBookOfferList = new ArrayList<>();
+            model.addAttribute("emptyList", emptyBookOfferList);
+        }
+        return "/homepage";
+    }
+
 }
