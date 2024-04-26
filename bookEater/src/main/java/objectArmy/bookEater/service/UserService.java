@@ -81,9 +81,9 @@ public class UserService implements UserDetailsService {
             user.setEmail(newUserProfile.getEmail());
         }
 
-//        if (newUserProfile.getPassword() != null && !passwordEncoder.matches(newUserProfile.getPassword(), user.getPassword())) {
-//            user.setPassword(passwordEncoder.encode(newUserProfile.getPassword()));
-//        }
+        if (newUserProfile.getPassword() != null && !passwordEncoder.matches(newUserProfile.getPassword(), user.getPassword())) {
+            user.setPassword(passwordEncoder.encode(newUserProfile.getPassword()));
+        }
 
         if (newUserProfile.getBio() != null && !newUserProfile.getBio().equals(user.getBio())) {
             user.setBio(newUserProfile.getBio());
