@@ -30,7 +30,8 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" th:href="@{/profileBookOffers}">My book offers</a></li>
-                            <li><a class="dropdown-item" th:href="@{/incomingBookRequests}">My incoming requests</a></li>
+                            <li><a class="dropdown-item" th:href="@{/incomingBookRequests}">My incoming requests</a>
+                            </li>
                             <li><a class="dropdown-item" th:href="@{/outgoingBookRequests}">Books I requested</a></li>
                         </ul>
                     </li>
@@ -46,15 +47,33 @@
                             Actions
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <li><a class="dropdown-item" th:href="@{/logout}" id="logout-link">Logout</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
                         <form class="d-flex" th:action="@{/search}">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="userQuery">
-                            <button class="btn btn-outline-primary" type="submit">Search</button>
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                                   name="userQuery">
+                            <button class="btn btn-outline-primary me-2" type="submit">Search</button>
                         </form>
+                    </li>
+                    <li class="nav-item me-2">
+                        <select class="form-select" aria-label="Search by">
+                            <option selected>Select search type</option>
+                            <option value="title">Title</option>
+                            <option value="author">Author</option>
+                        </select>
+                    </li>
+                    <!-- Search accuracy -->
+                    <li class="nav-item me-2">
+                        <select class="form-select" aria-label="Search accuracy">
+                            <option selected>Select search accuracy</option>
+                            <option value="exact">Exact</option>
+                            <option value="approximate">Approximate</option>
+                        </select>
                     </li>
                 </ul>
             </div>

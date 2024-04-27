@@ -29,8 +29,7 @@ public class HomepageController {
     @Autowired
     UserService userService;
 
-    @Autowired
-    TitleSearcher searcher;
+
 
     @GetMapping("/homepage")
     public String gotoHomePage(Model model) {
@@ -54,22 +53,6 @@ public class HomepageController {
         return "profile/notifications";
     }
 
-    @GetMapping("/search")
-    public String searchForBooks(Model model, @RequestParam("userQuery") String userQuery) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserProfile user = (UserProfile) authentication.getPrincipal();
-        user = userService.getUserById(user.getId());
-        model.addAttribute("user", user);
 
-
-        System.out.println("User query: " + userQuery);
-        model.addAttribute("searchResults",null);
-        List<BookOffer> results;
-        if (userQuery != null) results = searcher.searchApproximately(userQuery);
-        else results = new ArrayList<>();
-        System.out.println("Search results: " + results);
-        model.addAttribute("searchResults", results);
-        return "search/searchResults";
-    }
 
 }
