@@ -7,21 +7,22 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+/**
+ * @author Philip Athanasopoulos
+ */
 @Component
-public class TitleSearcher implements Searcher {
-
+public class AuthorSearcher implements Searcher {
     @Autowired
     BookOfferService bookOfferService;
 
+
     @Override
-    public List<BookOffer> searchApproximately(String queryBookTitle) {
-        return bookOfferService.searchByTitle(queryBookTitle);
+    public List<BookOffer> searchApproximately(String query) {
+        return null;
     }
 
     @Override
     public List<BookOffer> searchExact(String query) {
         return null;
     }
-
-
 }
