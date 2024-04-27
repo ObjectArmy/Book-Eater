@@ -3,6 +3,7 @@ package objectArmy.bookEater.controller;
 import objectArmy.bookEater.entity.book.BookOffer;
 import objectArmy.bookEater.entity.search.TitleSearcher;
 import objectArmy.bookEater.entity.user.UserProfile;
+import objectArmy.bookEater.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,6 +24,9 @@ public class SearchController {
 
     @Autowired
     TitleSearcher searcher;
+
+    @Autowired
+    UserService userService;
 
     @GetMapping("/search")
     public String searchForBooks(Model model, @RequestParam("userQuery") String userQuery) {
