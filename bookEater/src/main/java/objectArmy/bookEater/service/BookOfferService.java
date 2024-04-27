@@ -87,4 +87,9 @@ public class BookOfferService {
     public List<BookOffer> searchByTitle(String userQuery){
         return this.bookOfferRepository.findByTitle(userQuery);
     }
+    // Find by bookAuthor
+    public List<BookOffer> searchByAuthor(String userQuery){
+        return this.bookOfferRepository.findByAuthor(userQuery);
+    }
+
 }

@@ -18,4 +18,7 @@ public interface BookOfferRepository extends JpaRepository<BookOffer, Long> {
     @Query(value = "select offer from BookOffer offer join offer.offeredBook book where book.title like %:userQuery%")
     List<BookOffer> findByTitle(@Param("userQuery") String userQuery);
 
+    @Query(value = "select offer from BookOffer offer join offer.offeredBook book where book.author like %:userQuery%")
+    List<BookOffer> findByAuthor(@Param("userQuery") String userQuery);
+
 }
