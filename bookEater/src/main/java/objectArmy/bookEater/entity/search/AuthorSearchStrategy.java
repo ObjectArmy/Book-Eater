@@ -11,18 +11,17 @@ import java.util.List;
  * @author Philip Athanasopoulos
  */
 @Component
-public class AuthorSearcher implements Searcher {
+public class AuthorSearchStrategy implements SearchStrategy {
     @Autowired
-    BookOfferService bookOfferService;
-
+    private BookOfferService bookOfferService;
 
     @Override
     public List<BookOffer> searchApproximately(String query) {
-        return null;
+        return bookOfferService.searchByAuthorApproximately(query);
     }
 
     @Override
     public List<BookOffer> searchExact(String query) {
-        return null;
+        return bookOfferService.searchByAuthorExact(query);
     }
 }

@@ -84,12 +84,22 @@ public class BookOfferService {
         bookOfferRepository.delete(offer);
     }
     // Find by bookTitle
-    public List<BookOffer> searchByTitle(String userQuery){
-        return this.bookOfferRepository.findByTitle(userQuery);
+    public List<BookOffer> searchByTitleApproximately(String userQuery){
+        return this.bookOfferRepository.findByTitleApproximately(userQuery);
     }
     // Find by bookAuthor
-    public List<BookOffer> searchByAuthor(String userQuery){
-        return this.bookOfferRepository.findByAuthor(userQuery);
+    public List<BookOffer> searchByAuthorApproximately(String userQuery){
+        return this.bookOfferRepository.findByAuthorApproximately(userQuery);
+    }
+
+    // Find by bookTitle
+    public List<BookOffer> searchByTitleExact(String userQuery){
+        return this.bookOfferRepository.findByTitleExact(userQuery);
+    }
+
+    // Find by bookAuthor
+    public List<BookOffer> searchByAuthorExact(String userQuery){
+        return this.bookOfferRepository.findByAuthorExact(userQuery);
     }
 
 }

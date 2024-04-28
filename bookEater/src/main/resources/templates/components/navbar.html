@@ -58,23 +58,20 @@
                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
                                    name="userQuery">
                             <button class="btn btn-outline-primary me-2" type="submit">Search</button>
+                            <select class="form-select" aria-label="Search by" name="searchType">
+                                <option selected>Select search type</option>
+                                <option value="title">Title</option>
+                                <option value="author">Author</option>
+                            </select>
+                            <!-- Search accuracy -->
+                            <select class="form-select" aria-label="Search accuracy" name="searchAccuracy">
+                                <option selected>Select search accuracy</option>
+                                <option value="exact">Exact</option>
+                                <option value="approximate">Approximate</option>
+                            </select>
                         </form>
                     </li>
-                    <li class="nav-item me-2">
-                        <select class="form-select" aria-label="Search by">
-                            <option selected>Select search type</option>
-                            <option value="title">Title</option>
-                            <option value="author">Author</option>
-                        </select>
-                    </li>
-                    <!-- Search accuracy -->
-                    <li class="nav-item me-2">
-                        <select class="form-select" aria-label="Search accuracy">
-                            <option selected>Select search accuracy</option>
-                            <option value="exact">Exact</option>
-                            <option value="approximate">Approximate</option>
-                        </select>
-                    </li>
+
                 </ul>
             </div>
         </div>

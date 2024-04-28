@@ -1,17 +1,39 @@
 package objectArmy.bookEater.entity.search;
 
+import lombok.NoArgsConstructor;
 import objectArmy.bookEater.entity.book.BookOffer;
-import objectArmy.bookEater.service.BookOfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.awt.*;
 import java.util.List;
 
+/**
+ * @author Philip Athanasopoulos
+ */
+@NoArgsConstructor
 @Component
-public interface Searcher {
+public class Searcher {
+    @Autowired
+    private SearchStrategy searchStrategy;
 
-    List<BookOffer> searchApproximately(String query);
+    public Searcher(SearchStrategy searchStrategy) {
+        this.searchStrategy = searchStrategy;
+    }
 
-    List<BookOffer> searchExact(String query);
+    public SearchStrategy getSearchStrategy() {
+        return searchStrategy;
+    }
 
+    public void setSearchStrategy(SearchStrategy searchStrategy) {
+        this.searchStrategy = searchStrategy;
+    }
+
+    public List<BookOffer> searchApproximately(String query) {
+        return searchStrategy.searchApproximately(query);
+    }
+
+    public List<BookOffer> searchExact(String query) {
+        return searchStrategy.searchExact(query);
+    }
 }
