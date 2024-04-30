@@ -1,5 +1,6 @@
 package objectArmy.bookEater.dao;
 
+import objectArmy.bookEater.entity.book.BookCategory;
 import objectArmy.bookEater.entity.book.BookOffer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -27,4 +28,6 @@ public interface BookOfferRepository extends JpaRepository<BookOffer, Long> {
     @Query(value = "select offer from BookOffer offer join offer.offeredBook book join book.authors author where author.name = :userQuery")
     List<BookOffer> findByAuthorExact(@Param("userQuery") String userQuery);
 
+    @Query(value = "select offer from BookOffer offer join offer.offeredBook book join book.categories category where category = :favoriteCategory")
+    List<BookOffer> findByOfferedBookCategory(BookCategory favoriteCategory);
 }

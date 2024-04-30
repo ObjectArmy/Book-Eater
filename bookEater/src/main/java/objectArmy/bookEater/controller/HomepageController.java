@@ -1,5 +1,6 @@
 package objectArmy.bookEater.controller;
 
+import objectArmy.bookEater.entity.recommend.BookOfferRecommender;
 import objectArmy.bookEater.entity.user.UserProfile;
 import objectArmy.bookEater.service.BookOfferService;
 import objectArmy.bookEater.service.UserService;
@@ -24,6 +25,9 @@ public class HomepageController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    BookOfferRecommender bookOfferRecommender;
+
 
 
     @GetMapping("/homepage")
@@ -31,11 +35,10 @@ public class HomepageController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserProfile user = (UserProfile) authentication.getPrincipal();
         user = userService.getUserById(user.getId());
+
+        model.addAttribute("recommendedBookOffers", bookOfferRecommender.getRecommendedOffers(user));
         model.addAttribute("user", user);
-        UserProfile finalUser = user;
-        model.addAttribute("bookOffers", bookOfferService.getAllBookOffers().stream()
-                .filter(bookOffer -> !bookOffer.getOfferor().getId().equals(finalUser.getId()))
-                .collect(Collectors.toList()));
+
         return "/homepage";
     }
 

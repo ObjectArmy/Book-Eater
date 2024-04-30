@@ -2,6 +2,7 @@ package objectArmy.bookEater.service;
 
 import lombok.extern.slf4j.Slf4j;
 import objectArmy.bookEater.dao.BookOfferRepository;
+import objectArmy.bookEater.entity.book.BookCategory;
 import objectArmy.bookEater.entity.book.BookOffer;
 import objectArmy.bookEater.entity.book.BookRequest;
 import objectArmy.bookEater.entity.user.UserProfile;
@@ -10,6 +11,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -102,4 +104,7 @@ public class BookOfferService {
         return this.bookOfferRepository.findByAuthorExact(userQuery);
     }
 
+    public List<BookOffer> getOffersByCategory(BookCategory favoriteCategory) {
+        return bookOfferRepository.findByOfferedBookCategory(favoriteCategory);
+    }
 }
