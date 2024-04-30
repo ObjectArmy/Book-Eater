@@ -107,4 +107,8 @@ public class BookOfferService {
     public List<BookOffer> getOffersByCategory(BookCategory favoriteCategory) {
         return bookOfferRepository.findByOfferedBookCategory(favoriteCategory);
     }
+
+    public List<BookOffer> getAllBookOffersExceptFor(Long id) {
+        return bookOfferRepository.findAllExceptFor(id);
+    }
 }

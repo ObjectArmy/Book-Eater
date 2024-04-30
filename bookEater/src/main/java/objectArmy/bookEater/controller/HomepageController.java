@@ -1,5 +1,6 @@
 package objectArmy.bookEater.controller;
 
+import objectArmy.bookEater.entity.book.BookOffer;
 import objectArmy.bookEater.entity.recommend.BookOfferRecommender;
 import objectArmy.bookEater.entity.user.UserProfile;
 import objectArmy.bookEater.service.BookOfferService;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -28,8 +30,6 @@ public class HomepageController {
     @Autowired
     BookOfferRecommender bookOfferRecommender;
 
-
-
     @GetMapping("/homepage")
     public String gotoHomePage(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -37,6 +37,7 @@ public class HomepageController {
         user = userService.getUserById(user.getId());
 
         model.addAttribute("recommendedBookOffers", bookOfferRecommender.getRecommendedOffers(user));
+        model.addAttribute("allBookOffers", bookOfferService.getAllBookOffersExceptFor(user.getId()));
         model.addAttribute("user", user);
 
         return "/homepage";
@@ -47,10 +48,9 @@ public class HomepageController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserProfile user = (UserProfile) authentication.getPrincipal();
         user = userService.getUserById(user.getId());
+
         model.addAttribute("user", user);
+
         return "profile/notifications";
     }
-
-
-
 }
