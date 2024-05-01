@@ -81,7 +81,7 @@ public class UserService implements UserDetailsService {
             user.setEmail(newUserProfile.getEmail());
         }
 
-        if (newUserProfile.getPassword() != null && !passwordEncoder.matches(newUserProfile.getPassword(), user.getPassword())) {
+        if (newPasswordIsValid(newUserProfile, user)) {
             user.setPassword(passwordEncoder.encode(newUserProfile.getPassword()));
         }
 
@@ -95,5 +95,9 @@ public class UserService implements UserDetailsService {
 
         userProfileRepository.save(user);
         return user;
+    }
+
+    private boolean newPasswordIsValid(UserProfile newUserProfile, UserProfile user) {
+        return newUserProfile.getPassword() != null && !passwordEncoder.matches(newUserProfile.getPassword(), user.getPassword()) && !newUserProfile.getPassword().trim().isBlank() && newUserProfile.getPassword().length() >= 8;
     }
 }
