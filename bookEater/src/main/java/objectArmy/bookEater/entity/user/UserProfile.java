@@ -22,39 +22,28 @@ import java.util.List;
 
 @Slf4j
 @Getter
+@Setter
 @Entity
 @Table(name = "user_profile")
 public class UserProfile implements UserDetails {
-
-    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Setter
     private String firstName;
-    @Setter
     private String lastName;
-    @Setter
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date dateOfBirth;
-    @Setter
     @Column(unique = true)
     private String email;
-    @Setter
     private String password;
-    @Setter
     private String bio;
     @ManyToMany
     private List<BookCategory> favoriteCategories;
-    @Setter
     @OneToMany
     private List<BookOffer> bookOffers;
-    @Setter
     @OneToMany
     private List<BookRequest> outgoingBookRequests;
 
-    @Getter
-    @Setter
     @ElementCollection
     private List<String> notifications;
 
@@ -145,8 +134,8 @@ public class UserProfile implements UserDetails {
         return null;
     }
 
-    public void sentNotification(String notification){
+    public void sentNotification(String notification) {
         this.notifications.add(notification);
-
     }
+
 }

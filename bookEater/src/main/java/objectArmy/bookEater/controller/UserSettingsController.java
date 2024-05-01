@@ -1,5 +1,6 @@
 package objectArmy.bookEater.controller;
 
+import objectArmy.bookEater.entity.book.BookCategory;
 import objectArmy.bookEater.entity.user.UserProfile;
 import objectArmy.bookEater.service.BookCategoryService;
 import objectArmy.bookEater.service.UserService;
@@ -12,6 +13,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author Philip Athanasopoulos
@@ -28,16 +33,28 @@ public class UserSettingsController {
     public String gotoUserSettings(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserProfile user = (UserProfile) authentication.getPrincipal();
-        UserProfile loadedUser = userService.getUserById(user.getId());
+        user = userService.getUserById(user.getId());
 
         model.addAttribute("bookCategories", bookCategoryService.getBookCategories());
-        model.addAttribute("user", loadedUser);
+        model.addAttribute("user", user);
         return "profile/editProfileSettings";
     }
 
     @PostMapping("/settings")
-    public String updateUserProfile(@ModelAttribute("user") UserProfile userProfile, Model model) {
-        UserProfile user = (UserProfile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public String updateUserProfile(@ModelAttribute("user") UserProfile userProfile, Model model, @RequestParam("categories_values") String bookCategories) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserProfile user = (UserProfile) authentication.getPrincipal();
+        user = userService.getUserById(user.getId());
+
+        String[] categories = bookCategories.split(",");
+        System.out.println("Categories: " + Arrays.toString(categories));
+        List<BookCategory> favoriteCategories = new ArrayList<>();
+        for (String category : categories) {
+            favoriteCategories.add(bookCategoryService.findBookCategoryByName(category));
+            System.out.println("Added category: " + category);
+        }
+        userProfile.setFavoriteCategories(favoriteCategories);
+
         userService.updateUser(userProfile, user.getId());
         return "redirect:/settings";
     }

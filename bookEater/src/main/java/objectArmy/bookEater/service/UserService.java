@@ -89,6 +89,10 @@ public class UserService implements UserDetailsService {
             user.setBio(newUserProfile.getBio());
         }
 
+        if (newUserProfile.getFavoriteCategories() != null && !newUserProfile.getFavoriteCategories().equals(user.getFavoriteCategories())) {
+            user.setFavoriteCategories(newUserProfile.getFavoriteCategories());
+        }
+
         userProfileRepository.save(user);
         return user;
     }

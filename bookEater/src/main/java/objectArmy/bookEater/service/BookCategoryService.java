@@ -22,6 +22,10 @@ public class BookCategoryService {
         return bookCategoryRepository.save(category);
     }
 
+    public BookCategory findBookCategoryByName(String categoryName) {
+        return bookCategoryRepository.findByName(categoryName);
+    }
+
     public Optional<BookCategory> getBookCategoryByName(String categoryName) {
         return Optional.ofNullable(bookCategoryRepository.findByName(categoryName));
     }
