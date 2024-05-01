@@ -73,5 +73,4 @@ public class BookOfferServiceTest {
         assertTrue(user2.getOutgoingBookRequests().isEmpty());
     }
 
-
 }
