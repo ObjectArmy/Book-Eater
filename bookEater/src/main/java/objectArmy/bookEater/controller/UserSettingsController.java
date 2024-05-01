@@ -51,8 +51,8 @@ public class UserSettingsController {
         List<BookCategory> favoriteCategories = new ArrayList<>();
         for (String category : categories) {
             favoriteCategories.add(bookCategoryService.findBookCategoryByName(category));
-            System.out.println("Added category: " + category);
         }
+        System.out.println("Favorite categories: " + favoriteCategories.toString());
         userProfile.setFavoriteCategories(favoriteCategories);
 
         userService.updateUser(userProfile, user.getId());

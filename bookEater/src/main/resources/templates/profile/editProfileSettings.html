@@ -36,11 +36,11 @@
                                         <div>
                                             <label for="categories" name="selected_categories" value="">Your
                                                 Categories:</label>
-                                            <input name="categories_values" type="text" value="">
+                                            <input name="categories_values" type="text" value="" readonly>
                                             <select id="categories" name="categories" multiple class="form-control">
                                                 <option th:each="category : ${bookCategories}"
                                                         th:value="${category.name}"
-                                                        th:text="${#lists.contains(user.favoriteCategories, category) ? category.name + ' ✓' : category.name}"></option>
+                                                        th:text="${#lists.contains(user.favoriteCategories, category) ? category.name + '✓' : category.name}"></option>
                                             </select>
                                         </div>
                                     </div>
@@ -104,41 +104,35 @@
 
 <script>
     document.querySelector('select[name="categories"]').addEventListener('change', function (event) {
-        var selectedOption = this.options[this.selectedIndex];
-        var categoryName = selectedOption.text.replace(' ✓', '');
-        var label = document.querySelector('label[for="categories"]');
-        var currentCategories = label.getAttribute('value') ? label.getAttribute('value').split(', ') : [];
+        const selectedOption = this.options[this.selectedIndex];
+        const categoryName = selectedOption.text.replace('✓', '');
+        const input = document.querySelector('input[name="categories_values"]');
+        let currentCategories = input.getAttribute('value').split(',');
 
-        var index = currentCategories.indexOf(categoryName);
-        var categories_values = document.querySelector('input[name="categories_values"]');
-        if (index !== -1) {
-            currentCategories.splice(index, 1);
-            selectedOption.textContent = categoryName;
-        } else {
+        const index = currentCategories.indexOf(categoryName);
+        if (index === -1) {
             currentCategories.push(categoryName);
-            selectedOption.textContent = categoryName + ' ✓';
+            input.setAttribute('value', currentCategories.join(','));
+            selectedOption.textContent = categoryName + '✓';
+        } else {
+            currentCategories.splice(index, 1);
+            input.setAttribute('value', currentCategories.join(','));
+            selectedOption.textContent = categoryName;
         }
-
-        label.setAttribute('value', currentCategories.join(', '));
-        label.textContent = "Your Categories:" + currentCategories.join(', ');
-        categories_values.value = currentCategories.join(', ');
-        document.getElementById('selected_categories').value = label.textContent;
     });
 
     window.onload = function () {
-        var select = document.querySelector('select[name="categories"]');
-        var categories = Array.from(select.options)
-            .filter(option => option.text.includes(' ✓'))
-            .map(option => option.text.replace(' ✓', ''));
+        const select = document.querySelector('select[name="categories"]');
+        const categories = Array.from(select.options)
+            .filter(option => option.text.includes('✓'))
+            .map(option => option.text.replace('✓', ''));
 
-        var categoriesText = categories.join(', ');
+        const categoriesText = categories.join(',');
+        console.log(categoriesText);
 
-        var label = document.querySelector('label[for="categories"]');
-
-        label.setAttribute('values', categoriesText);
-        label.textContent = 'Your Categories:' + categoriesText;
+        const input = document.querySelector('input[name="categories_values"]');
+        input.setAttribute('value', categoriesText);
     };
-
 </script>
 
 </body>
