@@ -16,27 +16,19 @@ import java.util.List;
 @Entity
 @Table(name = "book_offer")
 @NoArgsConstructor
+@Getter
+@Setter
 public class BookOffer {
-    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Getter
-    @Setter
     @ManyToOne
     private UserProfile offeror;
-    @Getter
-    @Setter
     @OneToOne
     private Book offeredBook;
-    @Getter
-    @Setter
     private String offerDescription;
-    @Getter
     @OneToMany
     private List<BookRequest> requests;
-    @Getter
-    @Setter
     private Date postDate;
 
 
