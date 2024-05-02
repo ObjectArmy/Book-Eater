@@ -10,15 +10,13 @@ import lombok.Setter;
  */
 @Entity
 @NoArgsConstructor
+@Getter
+@Setter
 @Table(name = "author")
 public class Author {
-    @Setter
-    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Getter
-    @Setter
     private String name;
 
     public Author(String name) {
