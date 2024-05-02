@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomepageController {
 
-    BookOfferService bookOfferService;
-    UserService userService;
-    BookOfferRecommender bookOfferRecommender;
+    private BookOfferService bookOfferService;
+    private UserService userService;
+    private BookOfferRecommender bookOfferRecommender;
 
     @Autowired
     public HomepageController(BookOfferService bookOfferService, UserService userService, BookOfferRecommender bookOfferRecommender) {

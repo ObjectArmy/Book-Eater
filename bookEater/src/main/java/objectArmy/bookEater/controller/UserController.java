@@ -19,10 +19,4 @@ public class UserController {
     public UserController(UserService userProfileRepository) {
         this.userService = userProfileRepository;
     }
-
-    @GetMapping("/users")
-    public List<UserProfile> getUsers() {
-        return userService.getUsers();
-    }
-
 }

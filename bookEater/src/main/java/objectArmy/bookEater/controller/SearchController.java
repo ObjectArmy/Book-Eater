@@ -23,10 +23,10 @@ import java.util.List;
 @Controller
 public class SearchController {
 
-    AuthorSearchStrategy authorSearcher;
-    UserService userService;
     private final Searcher searcher;
     private final SearchStrategyFactory searchStrategyFactory;
+    private AuthorSearchStrategy authorSearcher;
+    private UserService userService;
 
     @Autowired
     public SearchController(UserService userService, Searcher searcher, SearchStrategyFactory searchStrategyFactory) {

@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class BookOfferController {
-    UserService userService;
-    BookOfferService bookOfferService;
-    BookService bookService;
-    BookCategoryService bookCategoryService;
-    AuthorService authorService;
-    BookRequestService bookRequestService;
+    private UserService userService;
+    private BookOfferService bookOfferService;
+    private BookService bookService;
+    private BookCategoryService bookCategoryService;
+    private AuthorService authorService;
+    private BookRequestService bookRequestService;
 
     @Autowired
     public BookOfferController(UserService userService, BookOfferService bookOfferService, BookService bookService, BookCategoryService bookCategoryService, AuthorService authorService, BookRequestService bookRequestService) {

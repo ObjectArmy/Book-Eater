@@ -17,9 +17,7 @@ import java.util.List;
 @Service
 @Transactional
 public class BookRequestService {
-
-
-    BookRequestRepository bookRequestRepository;
+    private BookRequestRepository bookRequestRepository;
 
     @Autowired
     public BookRequestService(BookRequestRepository bookRequestRepository) {

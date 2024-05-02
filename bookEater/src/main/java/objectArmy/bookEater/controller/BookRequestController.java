@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.*;
  */
 @Controller
 public class BookRequestController {
-    UserService userService;
-    BookRequestService bookRequestService;
+    private UserService userService;
+    private BookRequestService bookRequestService;
 
     @Autowired
     public BookRequestController(UserService userService, BookRequestService bookRequestService) {

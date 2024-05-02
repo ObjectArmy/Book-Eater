@@ -24,8 +24,8 @@ import java.util.List;
 @Controller
 public class UserSettingsController {
 
-    UserService userService;
-    BookCategoryService bookCategoryService;
+    private UserService userService;
+    private BookCategoryService bookCategoryService;
 
     @Autowired
     public UserSettingsController(UserService userService, BookCategoryService bookCategoryService) {

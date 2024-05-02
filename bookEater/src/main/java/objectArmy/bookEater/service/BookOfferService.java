@@ -1,6 +1,5 @@
 package objectArmy.bookEater.service;
 
-import lombok.extern.slf4j.Slf4j;
 import objectArmy.bookEater.dao.BookOfferRepository;
 import objectArmy.bookEater.entity.book.BookCategory;
 import objectArmy.bookEater.entity.book.BookOffer;
@@ -19,13 +18,10 @@ import java.util.List;
 @Service
 @Transactional
 public class BookOfferService {
-    BookOfferRepository bookOfferRepository;
-
-    BookService bookService;
-
-    UserService userService;
-
-    BookRequestService bookRequestService;
+    private BookRequestService bookRequestService;
+    private BookOfferRepository bookOfferRepository;
+    private BookService bookService;
+    private UserService userService;
 
     //Circular dependency is resolved by using @Lazy annotation
     @Autowired
