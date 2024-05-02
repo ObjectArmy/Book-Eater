@@ -13,8 +13,12 @@ import java.util.List;
  */
 @RestController
 public class BookController {
+    private final BookService bookService;
+
     @Autowired
-    private BookService bookService;
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
+    }
 
     @GetMapping("/books")
     public List<Book> getBooks() {

@@ -10,8 +10,12 @@ import java.util.List;
 
 @RestController
 public class AuthorController {
+    private final AuthorService authorService;
+
     @Autowired
-    private AuthorService authorService;
+    public AuthorController(AuthorService authorService) {
+        this.authorService = authorService;
+    }
 
     @GetMapping("/authors")
     public List<Author> getAuthors() {

@@ -11,27 +11,31 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
  * @author Philip Athanasopoulos
  */
-@Slf4j
 @Service
+@Transactional
 public class BookOfferService {
-    @Autowired
     BookOfferRepository bookOfferRepository;
 
-    @Autowired
     BookService bookService;
 
-    @Lazy
-    @Autowired
     UserService userService;
 
-    @Autowired
     BookRequestService bookRequestService;
+
+    //Circular dependency is resolved by using @Lazy annotation
+    @Autowired
+    public BookOfferService(BookOfferRepository bookOfferRepository, BookService bookService, @Lazy UserService userService, @Lazy BookRequestService bookRequestService) {
+        this.bookOfferRepository = bookOfferRepository;
+        this.bookService = bookService;
+        this.userService = userService;
+        this.bookRequestService = bookRequestService;
+    }
+
 
     public void saveBookOffer(BookOffer bookOffer) {
         bookService.saveBook(bookOffer.getOfferedBook());
@@ -43,7 +47,6 @@ public class BookOfferService {
         return bookOfferRepository.findAll();
     }
 
-    @Transactional
     public void addBookRequest(Long userId, Long bookOfferId) {
         UserProfile user = userService.getUserById(userId);
         BookOffer bookOffer = getBookOfferById(bookOfferId);
@@ -85,22 +88,24 @@ public class BookOfferService {
         //remove offer
         bookOfferRepository.delete(offer);
     }
+
     // Find by bookTitle
-    public List<BookOffer> searchByTitleApproximately(String userQuery){
+    public List<BookOffer> searchByTitleApproximately(String userQuery) {
         return this.bookOfferRepository.findByTitleApproximately(userQuery);
     }
+
     // Find by bookAuthor
-    public List<BookOffer> searchByAuthorApproximately(String userQuery){
+    public List<BookOffer> searchByAuthorApproximately(String userQuery) {
         return this.bookOfferRepository.findByAuthorApproximately(userQuery);
     }
 
     // Find by bookTitle
-    public List<BookOffer> searchByTitleExact(String userQuery){
+    public List<BookOffer> searchByTitleExact(String userQuery) {
         return this.bookOfferRepository.findByTitleExact(userQuery);
     }
 
     // Find by bookAuthor
-    public List<BookOffer> searchByAuthorExact(String userQuery){
+    public List<BookOffer> searchByAuthorExact(String userQuery) {
         return this.bookOfferRepository.findByAuthorExact(userQuery);
     }
 

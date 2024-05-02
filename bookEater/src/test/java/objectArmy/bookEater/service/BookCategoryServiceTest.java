@@ -2,7 +2,6 @@ package objectArmy.bookEater.service;
 
 import objectArmy.bookEater.dao.BookCategoryRepository;
 import objectArmy.bookEater.entity.book.BookCategory;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,9 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class BookCategoryServiceTest {
@@ -32,7 +33,7 @@ class BookCategoryServiceTest {
     @Test
     void getBookCategories() {
         List<BookCategory> categories = bookCategoryService.getBookCategories();
-        assertEquals(categories.size(),2);
+        assertEquals(categories.size(), 2);
         assertEquals(categories.get(0).getName(), "Fantasy");
         assertEquals(categories.get(1).getName(), "Horror");
     }

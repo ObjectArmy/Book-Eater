@@ -9,10 +9,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class SearchStrategyFactory {
 
+    private final TitleSearchStrategy titleSearchStrategy;
+    private final AuthorSearchStrategy authorSearchStrategy;
+
     @Autowired
-    private TitleSearchStrategy titleSearchStrategy;
-    @Autowired
-    private AuthorSearchStrategy authorSearchStrategy;
+    public SearchStrategyFactory(TitleSearchStrategy titleSearchStrategy, AuthorSearchStrategy authorSearchStrategy) {
+        this.titleSearchStrategy = titleSearchStrategy;
+        this.authorSearchStrategy = authorSearchStrategy;
+    }
 
     public SearchStrategy getSearchStrategy(String searchType) {
         if (searchType.equals("title")) return titleSearchStrategy;

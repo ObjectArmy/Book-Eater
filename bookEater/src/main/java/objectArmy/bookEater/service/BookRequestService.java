@@ -6,8 +6,8 @@ import objectArmy.bookEater.entity.book.BookRequest;
 import objectArmy.bookEater.entity.user.UserProfile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,11 +15,16 @@ import java.util.List;
  */
 
 @Service
+@Transactional
 public class BookRequestService {
 
 
-    @Autowired
     BookRequestRepository bookRequestRepository;
+
+    @Autowired
+    public BookRequestService(BookRequestRepository bookRequestRepository) {
+        this.bookRequestRepository = bookRequestRepository;
+    }
 
     public void saveBookRequest(BookRequest bookRequest) {
         bookRequestRepository.save(bookRequest);
@@ -60,7 +65,7 @@ public class BookRequestService {
 
         List<BookRequest> requestsToRemove = bookRequestRepository.findAllByBookOfferId(offer.getId());
         for (BookRequest bookRequest : requestsToRemove) {
-            if (bookRequest.getRequestee().equals(acceptedUser)){
+            if (bookRequest.getRequestee().equals(acceptedUser)) {
                 requestsToRemove.remove(bookRequest);
                 break;
             }

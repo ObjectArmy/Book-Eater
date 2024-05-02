@@ -16,25 +16,22 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class BookOfferController {
-
-
-    @Autowired
     UserService userService;
-
-    @Autowired
     BookOfferService bookOfferService;
-
-    @Autowired
     BookService bookService;
-
-    @Autowired
     BookCategoryService bookCategoryService;
-
-    @Autowired
     AuthorService authorService;
+    BookRequestService bookRequestService;
 
     @Autowired
-    BookRequestService bookRequestService;
+    public BookOfferController(UserService userService, BookOfferService bookOfferService, BookService bookService, BookCategoryService bookCategoryService, AuthorService authorService, BookRequestService bookRequestService) {
+        this.userService = userService;
+        this.bookOfferService = bookOfferService;
+        this.bookService = bookService;
+        this.bookCategoryService = bookCategoryService;
+        this.authorService = authorService;
+        this.bookRequestService = bookRequestService;
+    }
 
 
     @GetMapping("/profileBookOffers")

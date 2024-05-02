@@ -2,7 +2,6 @@ package objectArmy.bookEater.dao;
 
 import objectArmy.bookEater.entity.book.BookCategory;
 import objectArmy.bookEater.entity.book.BookOffer;
-import objectArmy.bookEater.entity.user.UserProfile;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

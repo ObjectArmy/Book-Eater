@@ -4,6 +4,7 @@ import objectArmy.bookEater.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -21,8 +22,15 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    private final CustomSuccessHandler customSuccessHandler;
+    private final UserService userService;
+
+    //Circular dependency is resolved by using @Lazy
     @Autowired
-    private CustomSuccessHandler customSuccessHandler;
+    public SecurityConfig(CustomSuccessHandler customSuccessHandler, @Lazy UserService userService) {
+        this.customSuccessHandler = customSuccessHandler;
+        this.userService = userService;
+    }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -31,7 +39,7 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return new UserService();
+        return userService;
     }
 
     @Bean
@@ -52,21 +60,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http.authorizeHttpRequests((authz) -> authz
-                .requestMatchers("/", "/login", "/register/**").permitAll()
-                .requestMatchers("/users/**").authenticated()
-                .requestMatchers("/images/*").permitAll()
-                .anyRequest().authenticated());
+        http.authorizeHttpRequests((authz) -> authz.requestMatchers("/", "/login", "/register/**").permitAll().requestMatchers("/users/**").authenticated().requestMatchers("/images/*").permitAll().anyRequest().authenticated());
 
-        http.formLogin(fL -> fL.loginPage("/login")
-                .failureUrl("/login?error=true")
-                .successHandler(customSuccessHandler)
-                .usernameParameter("email")
-                .passwordParameter("password"));
+        http.formLogin(fL -> fL.loginPage("/login").failureUrl("/login?error=true").successHandler(customSuccessHandler).usernameParameter("email").passwordParameter("password"));
 
-        http.logout(logOut -> logOut.logoutUrl("/logout")
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/"));
+        http.logout(logOut -> logOut.logoutUrl("/logout").logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/"));
 
         http.authenticationProvider(authenticationProvider());
 

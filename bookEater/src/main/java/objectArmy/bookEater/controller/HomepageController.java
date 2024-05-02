@@ -1,6 +1,5 @@
 package objectArmy.bookEater.controller;
 
-import objectArmy.bookEater.entity.book.BookOffer;
 import objectArmy.bookEater.entity.recommend.BookOfferRecommender;
 import objectArmy.bookEater.entity.user.UserProfile;
 import objectArmy.bookEater.service.BookOfferService;
@@ -12,23 +11,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 /**
  * @author Philip Athanasopoulos
  */
 @Controller
 public class HomepageController {
 
-    @Autowired
     BookOfferService bookOfferService;
-
-    @Autowired
     UserService userService;
+    BookOfferRecommender bookOfferRecommender;
 
     @Autowired
-    BookOfferRecommender bookOfferRecommender;
+    public HomepageController(BookOfferService bookOfferService, UserService userService, BookOfferRecommender bookOfferRecommender) {
+        this.bookOfferService = bookOfferService;
+        this.userService = userService;
+        this.bookOfferRecommender = bookOfferRecommender;
+    }
 
     @GetMapping("/homepage")
     public String gotoHomePage(Model model) {

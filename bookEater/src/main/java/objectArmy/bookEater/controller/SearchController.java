@@ -23,14 +23,17 @@ import java.util.List;
 @Controller
 public class SearchController {
 
-    @Autowired
     AuthorSearchStrategy authorSearcher;
-    @Autowired
     UserService userService;
+    private final Searcher searcher;
+    private final SearchStrategyFactory searchStrategyFactory;
+
     @Autowired
-    private Searcher searcher;
-    @Autowired
-    private SearchStrategyFactory searchStrategyFactory;
+    public SearchController(UserService userService, Searcher searcher, SearchStrategyFactory searchStrategyFactory) {
+        this.userService = userService;
+        this.searcher = searcher;
+        this.searchStrategyFactory = searchStrategyFactory;
+    }
 
     @GetMapping("/search")
     public String searchForBooks(Model model, @RequestParam("userQuery") String userQuery, @RequestParam("searchType") String searchType, @RequestParam("searchAccuracy") String searchAccuracy

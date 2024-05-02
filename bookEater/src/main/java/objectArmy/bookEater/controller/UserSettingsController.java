@@ -24,10 +24,14 @@ import java.util.List;
 @Controller
 public class UserSettingsController {
 
-    @Autowired
     UserService userService;
-    @Autowired
     BookCategoryService bookCategoryService;
+
+    @Autowired
+    public UserSettingsController(UserService userService, BookCategoryService bookCategoryService) {
+        this.userService = userService;
+        this.bookCategoryService = bookCategoryService;
+    }
 
     @GetMapping("/settings")
     public String gotoUserSettings(Model model) {
@@ -52,7 +56,7 @@ public class UserSettingsController {
         for (String category : categories) {
             favoriteCategories.add(bookCategoryService.findBookCategoryByName(category));
         }
-        System.out.println("Favorite categories: " + favoriteCategories.toString());
+        System.out.println("Favorite categories: " + favoriteCategories);
         userProfile.setFavoriteCategories(favoriteCategories);
 
         userService.updateUser(userProfile, user.getId());

@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -17,13 +18,22 @@ import java.util.List;
  * @author Philip Athanasopoulos
  */
 @Service
+@Transactional
 public class UserService implements UserDetailsService {
-    @Autowired
     private UserProfileRepository userProfileRepository;
-    @Autowired
     private BookOfferService bookOfferService;
-    @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    public UserService(UserProfileRepository userProfileRepository, BookOfferService bookOfferService, BCryptPasswordEncoder passwordEncoder) {
+        this.userProfileRepository = userProfileRepository;
+        this.bookOfferService = bookOfferService;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    public UserService() {
+
+    }
 
     public List<UserProfile> getUsers() {
         return userProfileRepository.findAll();

@@ -10,7 +10,8 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
@@ -33,7 +34,7 @@ class AuthorServiceTest {
     void getAuthors() {
         List<Author> authors = authorService.getAuthors();
 
-        assertEquals(2,authors.size());
+        assertEquals(2, authors.size());
         assertEquals(authors.get(0).getName(), "George");
         assertEquals(authors.get(1).getName(), "Mike");
     }

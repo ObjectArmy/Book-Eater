@@ -11,8 +11,12 @@ import java.util.List;
 @Component
 @Primary
 public class TitleSearchStrategy implements SearchStrategy {
+    private final BookOfferService bookOfferService;
+
     @Autowired
-    private BookOfferService bookOfferService;
+    public TitleSearchStrategy(BookOfferService bookOfferService) {
+        this.bookOfferService = bookOfferService;
+    }
 
 
     @Override

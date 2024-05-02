@@ -18,9 +18,12 @@ import java.util.List;
 @Primary
 public class CategoryBasedRecommendStrategy implements BookOfferRecommendStrategy {
 
-    @Autowired
     BookOfferService bookOfferService;
 
+    @Autowired
+    public CategoryBasedRecommendStrategy(BookOfferService bookOfferService) {
+        this.bookOfferService = bookOfferService;
+    }
 
     @Override
     public List<BookOffer> getRecommendedOffers(UserProfile userProfile) {

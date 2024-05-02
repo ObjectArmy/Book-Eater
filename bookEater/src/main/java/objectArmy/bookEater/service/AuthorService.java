@@ -4,14 +4,20 @@ import objectArmy.bookEater.dao.AuthorRepository;
 import objectArmy.bookEater.entity.book.Author;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class AuthorService {
+    private final AuthorRepository authorRepository;
+
     @Autowired
-    private AuthorRepository authorRepository;
+    public AuthorService(AuthorRepository authorRepository) {
+        this.authorRepository = authorRepository;
+    }
 
     public List<Author> getAuthors() {
         return this.authorRepository.findAll();

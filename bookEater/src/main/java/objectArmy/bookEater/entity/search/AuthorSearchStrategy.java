@@ -12,8 +12,12 @@ import java.util.List;
  */
 @Component
 public class AuthorSearchStrategy implements SearchStrategy {
+    private final BookOfferService bookOfferService;
+
     @Autowired
-    private BookOfferService bookOfferService;
+    public AuthorSearchStrategy(BookOfferService bookOfferService) {
+        this.bookOfferService = bookOfferService;
+    }
 
     @Override
     public List<BookOffer> searchApproximately(String query) {

@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.*;
  */
 @Controller
 public class BookRequestController {
-
-    @Autowired
     UserService userService;
+    BookRequestService bookRequestService;
 
     @Autowired
-    BookRequestService bookRequestService;
+    public BookRequestController(UserService userService, BookRequestService bookRequestService) {
+        this.userService = userService;
+        this.bookRequestService = bookRequestService;
+    }
 
     @GetMapping("/outgoingBookRequests")
     public String getOutgoingBookRequests(Model model) {
