@@ -11,8 +11,7 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
@@ -22,7 +21,6 @@ public class UserServiceTest {
     private UserProfile user1;
     @Autowired
     BookOfferService bookOfferService;
-    // add something else...
 
     @BeforeEach
     public void setUp(){
@@ -46,7 +44,10 @@ public class UserServiceTest {
     public void testAddBookOfferToUser(){
         BookOffer bookOffer = new BookOffer(user1, new Book(), "aBook", new Date());
         userService.addBookOfferToUser(user1, bookOffer);
-        assertNotNull(bookOfferService.getBookOfferById(bookOffer.getId()));
+        BookOffer savedBookOffer = bookOfferService.getBookOfferById(bookOffer.getId());
+        user1 = userService.getUserById(1);
+        assertNotNull(savedBookOffer);
+        assertEquals(savedBookOffer, user1.getBookOffers().get(0));
     }
 
 }

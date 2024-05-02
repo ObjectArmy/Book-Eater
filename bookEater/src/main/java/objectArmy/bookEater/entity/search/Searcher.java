@@ -1,16 +1,17 @@
 package objectArmy.bookEater.entity.search;
 
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import objectArmy.bookEater.entity.book.BookOffer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.awt.*;
 import java.util.List;
 
 /**
  * @author Philip Athanasopoulos
  */
+@Setter
 @NoArgsConstructor
 @Component
 public class Searcher {
@@ -18,14 +19,6 @@ public class Searcher {
     private SearchStrategy searchStrategy;
 
     public Searcher(SearchStrategy searchStrategy) {
-        this.searchStrategy = searchStrategy;
-    }
-
-    public SearchStrategy getSearchStrategy() {
-        return searchStrategy;
-    }
-
-    public void setSearchStrategy(SearchStrategy searchStrategy) {
         this.searchStrategy = searchStrategy;
     }
 

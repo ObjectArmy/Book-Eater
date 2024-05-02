@@ -63,7 +63,7 @@ public class UserService implements UserDetailsService {
         return userProfileRepository.findUserById(id);
     }
 
-    public UserProfile updateUser(UserProfile newUserProfile, Long id) {
+    public void updateUser(UserProfile newUserProfile, Long id) {
         UserProfile user = userProfileRepository.findUserById(id);
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
@@ -94,7 +94,6 @@ public class UserService implements UserDetailsService {
         }
 
         userProfileRepository.save(user);
-        return user;
     }
 
     private boolean newPasswordIsValid(UserProfile newUserProfile, UserProfile user) {

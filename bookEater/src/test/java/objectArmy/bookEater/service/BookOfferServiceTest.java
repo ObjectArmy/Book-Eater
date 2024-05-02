@@ -75,4 +75,47 @@ public class BookOfferServiceTest {
         assertTrue(user2.getOutgoingBookRequests().isEmpty());
     }
 
+    @Test
+    void saveBookOffer() {
+    }
+
+    @Test
+    void getAllBookOffers() {
+    }
+
+    @Test
+    void addBookRequest() {
+    }
+
+    @Test
+    void getBookOfferById() {
+    }
+
+    @Test
+    void deleteBookOfferById() {
+    }
+
+    @Test
+    void searchByTitleApproximately() {
+    }
+
+    @Test
+    void searchByAuthorApproximately() {
+    }
+
+    @Test
+    void searchByTitleExact() {
+    }
+
+    @Test
+    void searchByAuthorExact() {
+    }
+
+    @Test
+    void getOffersByCategory() {
+    }
+
+    @Test
+    void getAllBookOffersExceptFor() {
+    }
 }
