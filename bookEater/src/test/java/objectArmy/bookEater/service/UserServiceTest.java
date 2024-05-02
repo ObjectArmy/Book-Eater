@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.Date;
 
@@ -14,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 @SpringBootTest
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class UserServiceTest {
     @Autowired
     private UserService userService;
@@ -26,7 +28,6 @@ public class UserServiceTest {
     public void setUp(){
         user1 = new UserProfile("aFirstName", "aLastName", new Date(), 20, "someone@gmail.com", "password");
         userService.saveUser(user1);
-        // add something else...
     }
 
     @Test
