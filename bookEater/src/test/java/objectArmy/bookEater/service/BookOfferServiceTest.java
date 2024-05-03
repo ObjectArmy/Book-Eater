@@ -70,11 +70,9 @@ public class BookOfferServiceTest {
     }
 
     @Test
-    void addBookRequest() {
-    }
-
-    @Test
     void getBookOfferById() {
+        bookOfferService.saveBookOffer(bookOffer);
+        assertEquals(bookOffer, bookOfferService.getBookOfferById(bookOffer.getId()));
     }
 
     @Test

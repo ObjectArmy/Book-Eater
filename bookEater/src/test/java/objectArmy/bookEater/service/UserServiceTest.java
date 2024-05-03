@@ -43,13 +43,14 @@ public class UserServiceTest {
     }
 
     @Test
-    //FIXME: This test is failing
-    //The Date conversion is not working properly
     void getUserById() {
+        //FIXME
         assertEquals(user1, userService.getUserById(1));
     }
 
+
     @Test
     void updateUser() {
+        //TODO
     }
 }

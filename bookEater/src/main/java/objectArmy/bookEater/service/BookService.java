@@ -32,7 +32,6 @@ public class BookService {
     public void saveBook(Book book) {
         book.getAuthors().forEach(this.authorService::saveAuthor);
         book.getCategories().forEach(this.bookCategoryService::saveCategory);
-
         this.bookRepository.save(book);
     }
 

@@ -88,15 +88,9 @@ class BookRequestServiceTest {
         assertTrue(bookOffer.getRequests().isEmpty());
     }
 
-    @Test
-    void removeBookRequestsForOffer() {
-    }
-
-    @Test
-    void removeRequest() {
-    }
 
     @Test
     void acceptRequest() {
+        //TODO
     }
 }
