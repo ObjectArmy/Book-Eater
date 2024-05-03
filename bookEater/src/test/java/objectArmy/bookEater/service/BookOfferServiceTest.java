@@ -70,6 +70,7 @@ public class BookOfferServiceTest {
     }
 
     @Test
+    @Transactional
     void getBookOfferById() {
         bookOfferService.saveBookOffer(bookOffer);
         assertEquals(bookOffer, bookOfferService.getBookOfferById(bookOffer.getId()));

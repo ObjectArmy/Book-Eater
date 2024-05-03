@@ -57,7 +57,7 @@ class AuthorServiceTest {
 
     @Test
     void getAuthorOrElseCreate() {
-        Author nonExistingAuthor = authorService.getAuthorOrElseCreate("Nick");
+        authorService.getAuthorOrElseCreate("Nick");
         assertNotNull(authorRepository.getByName("Nick"));
     }
 }
