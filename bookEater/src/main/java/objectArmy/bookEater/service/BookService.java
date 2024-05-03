@@ -15,10 +15,14 @@ import java.util.List;
 @Transactional
 public class BookService {
     private final BookRepository bookRepository;
+    private final AuthorService authorService;
+    private final BookCategoryService bookCategoryService;
 
     @Autowired
-    public BookService(BookRepository bookRepository) {
+    public BookService(BookRepository bookRepository, AuthorService authorService, BookCategoryService bookCategoryService) {
         this.bookRepository = bookRepository;
+        this.authorService = authorService;
+        this.bookCategoryService = bookCategoryService;
     }
 
     public List<Book> getBooks() {
@@ -26,6 +30,9 @@ public class BookService {
     }
 
     public void saveBook(Book book) {
+        book.getAuthors().forEach(this.authorService::saveAuthor);
+        book.getCategories().forEach(this.bookCategoryService::saveCategory);
+
         this.bookRepository.save(book);
     }
 

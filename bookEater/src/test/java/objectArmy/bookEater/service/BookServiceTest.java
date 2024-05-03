@@ -1,5 +1,7 @@
 package objectArmy.bookEater.service;
 
+import objectArmy.bookEater.dao.AuthorRepository;
+import objectArmy.bookEater.dao.BookCategoryRepository;
 import objectArmy.bookEater.dao.BookRepository;
 import objectArmy.bookEater.entity.book.Author;
 import objectArmy.bookEater.entity.book.Book;
@@ -24,6 +26,10 @@ class BookServiceTest {
     BookService bookService;
     @Autowired
     BookRepository bookRepository;
+    @Autowired
+    AuthorRepository authorRepository;
+    @Autowired
+    BookCategoryRepository bookCategoryRepository;
 
     @BeforeEach
     void setUp() {
@@ -39,8 +45,15 @@ class BookServiceTest {
         categories2.add(new BookCategory("Fantasy"));
         Book book2 = new Book(authors2, "A Game of Thrones", "Intrigue and power struggles in a fantasy world", categories2);
 
+        authorRepository.saveAll(authors1);
+        authorRepository.saveAll(authors2);
+
+        bookCategoryRepository.saveAll(categories1);
+        bookCategoryRepository.saveAll(categories2);
+
         bookRepository.save(book1);
         bookRepository.save(book2);
+
     }
 
     @Test

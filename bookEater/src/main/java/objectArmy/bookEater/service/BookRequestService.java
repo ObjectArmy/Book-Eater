@@ -17,18 +17,31 @@ import java.util.List;
 @Service
 @Transactional
 public class BookRequestService {
-    private BookRequestRepository bookRequestRepository;
+    private final BookRequestRepository bookRequestRepository;
+    private final UserService userProfileService;
+    private final BookOfferService bookOfferService;
 
     @Autowired
-    public BookRequestService(BookRequestRepository bookRequestRepository) {
+    public BookRequestService(BookRequestRepository bookRequestRepository, UserService userProfileService, BookOfferService bookOfferService) {
         this.bookRequestRepository = bookRequestRepository;
+        this.userProfileService = userProfileService;
+        this.bookOfferService = bookOfferService;
     }
 
     public void saveBookRequest(BookRequest bookRequest) {
+        BookOffer offer = bookOfferService.getBookOfferById(bookRequest.getBookOffer().getId());
+        UserProfile requestee = userProfileService.getUserById(bookRequest.getRequestee().getId());
+        offer.addRequest(bookRequest);
+        requestee.addOutgoingBookRequest(bookRequest);
         bookRequestRepository.save(bookRequest);
     }
 
     public void deleteBookRequest(BookRequest request) {
+        UserProfile requestee = request.getRequestee();
+        UserProfile offeror = request.getBookOffer().getOfferor();
+        requestee.removeOutgoingBookRequest(request);
+        offeror.removeIncomingBookRequest(request);
+        request.getBookOffer().removeRequest(request);
         bookRequestRepository.delete(request);
     }
 
@@ -37,22 +50,7 @@ public class BookRequestService {
     }
 
     public void deleteBookRequestById(Long id) {
-        bookRequestRepository.deleteById(id);
-    }
-
-    public void removeBookRequestsForOffer(BookOffer offer) {
-        List<BookRequest> requests = bookRequestRepository.findByBookOffer(offer);
-        for (BookRequest request : requests) {
-            offer.removeRequest(request);
-            request.getRequestee().removeOutgoingBookRequest(request);
-            deleteBookRequest(request);
-        }
-    }
-
-    public void removeRequest(BookRequest request) {
-        request.getRequestee().removeOutgoingBookRequest(request);
-        request.getBookOffer().removeRequest(request);
-        deleteBookRequest(request);
+        deleteBookRequest(bookRequestRepository.getReferenceById(id));
     }
 
     public void acceptRequest(Long requestId) {
@@ -75,6 +73,15 @@ public class BookRequestService {
         }
 
         bookRequestRepository.deleteAll(requestsToRemove);
+    }
+
+    public void deleteAllBookRequestsForOffer(BookOffer offer) {
+        UserProfile offeror = offer.getOfferor();
+        for (BookRequest request : offer.getRequests()) {
+            request.getRequestee().removeOutgoingBookRequest(request);
+            offeror.removeOutgoingBookRequest(request);
+        }
+        bookRequestRepository.deleteAll(offer.getRequests());
 
     }
 }

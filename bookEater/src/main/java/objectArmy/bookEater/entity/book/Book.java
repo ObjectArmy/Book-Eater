@@ -14,24 +14,18 @@ import java.util.List;
 @Entity
 @Table(name = "book")
 @NoArgsConstructor
+@Getter
+@Setter
 public class Book {
-    @Setter
-    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Getter
     @ManyToMany
-    private List<Author> authors = new ArrayList<>();
-    @Getter
-    @Setter
+    private List<Author> authors;
     private String title;
-    @Setter
-    @Getter
     private String summary;
-    @Getter
     @ManyToMany
-    private List<BookCategory> categories = new ArrayList<>();
+    private List<BookCategory> categories;
 
 
     public Book(ArrayList<Author> authors, String title, String summary, ArrayList<BookCategory> categories) {

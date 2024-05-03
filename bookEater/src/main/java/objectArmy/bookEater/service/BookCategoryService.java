@@ -42,4 +42,8 @@ public class BookCategoryService {
             return addBookCategory(category);
         });
     }
+
+    public void saveCategory(BookCategory category) {
+        bookCategoryRepository.save(category);
+    }
 }

@@ -134,8 +134,26 @@ public class UserProfile implements UserDetails {
         return null;
     }
 
+    public void removeIncomingBookRequestsOfBookOffer(BookOffer bookOffer) {
+        List<BookRequest> requestsToRemove = new ArrayList<>();
+        for (BookRequest request : this.getIncomingBookRequests()) {
+            if (request.getBookOffer().equals(bookOffer)) requestsToRemove.add(request);
+        }
+        for (BookRequest request : requestsToRemove) {
+            this.removeOutgoingBookRequest(request);
+        }
+
+    }
+
     public void sentNotification(String notification) {
         this.notifications.add(notification);
     }
 
+    public void addIncomingBookRequest(BookRequest bookRequest) {
+        this.outgoingBookRequests.add(bookRequest);
+    }
+
+    public void removeIncomingBookRequest(BookRequest request) {
+        this.outgoingBookRequests.remove(request);
+    }
 }

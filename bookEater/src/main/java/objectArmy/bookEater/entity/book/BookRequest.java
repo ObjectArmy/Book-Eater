@@ -16,17 +16,10 @@ import objectArmy.bookEater.entity.user.UserProfile;
 @NoArgsConstructor
 public class BookRequest {
     @Id
-    @Getter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Getter
-    @Setter
     @ManyToOne
     private UserProfile requestee;
-
-    @Getter
-    @Setter
     @ManyToOne
     private BookOffer bookOffer;
 

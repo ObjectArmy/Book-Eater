@@ -1,7 +1,6 @@
 package objectArmy.bookEater.service;
 
 import objectArmy.bookEater.dao.UserProfileRepository;
-import objectArmy.bookEater.entity.book.BookOffer;
 import objectArmy.bookEater.entity.user.UserProfile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,32 +10,19 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.List;
-
 /**
  * @author Philip Athanasopoulos
  */
 @Service
 @Transactional
 public class UserService implements UserDetailsService {
-    private UserProfileRepository userProfileRepository;
-    private BookOfferService bookOfferService;
-    private BCryptPasswordEncoder passwordEncoder;
+    private final UserProfileRepository userProfileRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserProfileRepository userProfileRepository, BookOfferService bookOfferService, BCryptPasswordEncoder passwordEncoder) {
+    public UserService(UserProfileRepository userProfileRepository, BCryptPasswordEncoder passwordEncoder) {
         this.userProfileRepository = userProfileRepository;
-        this.bookOfferService = bookOfferService;
         this.passwordEncoder = passwordEncoder;
-    }
-
-    public UserService() {
-
-    }
-
-    public List<UserProfile> getUsers() {
-        return userProfileRepository.findAll();
     }
 
     public void saveUser(UserProfile userToAdd) {
@@ -48,14 +34,6 @@ public class UserService implements UserDetailsService {
         }
 
         userProfileRepository.save(userToAdd);
-    }
-
-    public void addBookOfferToUser(UserProfile user, BookOffer bookOffer) {
-        bookOffer.setOfferor(user);
-        bookOffer.setPostDate(new Date());
-        bookOfferService.saveBookOffer(bookOffer);
-        user.addBookOffer(bookOffer);
-        userProfileRepository.save(user);
     }
 
     public void deleteUser(UserProfile userToDelete) {

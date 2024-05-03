@@ -3,7 +3,6 @@ package objectArmy.bookEater.service;
 import objectArmy.bookEater.dao.BookOfferRepository;
 import objectArmy.bookEater.entity.book.BookCategory;
 import objectArmy.bookEater.entity.book.BookOffer;
-import objectArmy.bookEater.entity.book.BookRequest;
 import objectArmy.bookEater.entity.user.UserProfile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -18,23 +17,22 @@ import java.util.List;
 @Service
 @Transactional
 public class BookOfferService {
-    private BookRequestService bookRequestService;
-    private BookOfferRepository bookOfferRepository;
-    private BookService bookService;
-    private UserService userService;
+    private final BookOfferRepository bookOfferRepository;
+    private final BookService bookService;
+    private final BookRequestService bookRequestService;
 
     //Circular dependency is resolved by using @Lazy annotation
     @Autowired
-    public BookOfferService(BookOfferRepository bookOfferRepository, BookService bookService, @Lazy UserService userService, @Lazy BookRequestService bookRequestService) {
+    public BookOfferService(BookOfferRepository bookOfferRepository, BookService bookService, @Lazy BookRequestService bookRequestService) {
         this.bookOfferRepository = bookOfferRepository;
         this.bookService = bookService;
-        this.userService = userService;
         this.bookRequestService = bookRequestService;
     }
 
 
     public void saveBookOffer(BookOffer bookOffer) {
         bookService.saveBook(bookOffer.getOfferedBook());
+        bookOffer.getOfferor().addBookOffer(bookOffer);
         bookOfferRepository.save(bookOffer);
     }
 
@@ -43,21 +41,6 @@ public class BookOfferService {
         return bookOfferRepository.findAll();
     }
 
-    public void addBookRequest(Long userId, Long bookOfferId) {
-        UserProfile user = userService.getUserById(userId);
-        BookOffer bookOffer = getBookOfferById(bookOfferId);
-        BookRequest request = new BookRequest(user, bookOffer);
-        bookRequestService.saveBookRequest(request);
-
-        //save request to the user
-        user.addOutgoingBookRequest(request);
-        userService.saveUser(user);
-
-        //save request to the offer
-        bookOffer.addRequest(request);
-        this.saveBookOffer(bookOffer);
-
-    }
 
     public BookOffer getBookOfferById(Long id) {
         return bookOfferRepository.findBookOfferById(id);
@@ -65,22 +48,14 @@ public class BookOfferService {
 
     @Transactional
     public void deleteBookOfferById(Long id) {
+        deleteBookOffer(bookOfferRepository.findBookOfferById(id));
+    }
 
-        BookOffer offer = bookOfferRepository.findBookOfferById(id);
+    public void deleteBookOffer(BookOffer offer) {
         UserProfile offeror = offer.getOfferor();
-
-
         offeror.removeBookOffer(offer);
-        userService.saveUser(offeror);
-
-        //remove requests associated with the offer
-        for (BookRequest request : offer.getRequests()) {
-            UserProfile requestor = request.getRequestee();
-            requestor.removeOutgoingBookRequest(request);
-            userService.saveUser(requestor);
-            bookRequestService.deleteBookRequest(request);
-        }
-
+        //delete all requests for this offer
+        bookRequestService.deleteAllBookRequestsForOffer(offer);
         //remove offer
         bookOfferRepository.delete(offer);
     }
