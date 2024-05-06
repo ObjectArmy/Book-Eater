@@ -16,8 +16,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
@@ -32,14 +31,17 @@ class BookRequestServiceTest {
     BookRequestRepository bookRequestRepository;
     private UserProfile user1;
     private UserProfile user2;
+    private UserProfile user3;
     private BookOffer bookOffer;
 
     @BeforeEach
     void setUp() {
         user1 = new UserProfile("aFirstName", "aLastName", LocalDate.now(), "someone@gmail.com", "password");
         user2 = new UserProfile("aFirstName", "aLastName", LocalDate.now(), "someoneElse@gmail.com", "password");
+        user3 = new UserProfile("aFirstName", "aLastName", LocalDate.now(), "someoneAnotherElse@gmail.com", "password");
         userService.saveUser(user1);
         userService.saveUser(user2);
+        userService.saveUser(user3);
 
         Book offeredBook = new Book(new ArrayList<>(), "Title", "Summary", new ArrayList<>());
         bookOffer = new BookOffer(user1, offeredBook, "Description", new Date());
@@ -91,7 +93,16 @@ class BookRequestServiceTest {
 
 
     @Test
+    @Transactional
     void acceptRequest() {
-        //TODO
+        BookRequest bookRequestToAccept = new BookRequest(user2, bookOffer);
+        BookRequest bookRequestToBeDeclined = new BookRequest(user3, bookOffer);
+        bookRequestService.saveBookRequest(bookRequestToAccept);
+        bookRequestService.saveBookRequest(bookRequestToBeDeclined);
+        bookRequestService.acceptRequest(bookRequestToAccept.getId());
+        assertNull(bookRequestService.getBookRequestById(bookRequestToBeDeclined.getId()));
+        assertEquals(1, user2.getNotifications().size());
+        assertEquals("Your request for Title has been accepted!", user2.getNotifications().get(0));
+
     }
 }

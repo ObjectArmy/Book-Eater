@@ -61,6 +61,7 @@ public class UserProfile implements UserDetails {
         this.bookOffers = new ArrayList<>();
         this.outgoingBookRequests = new ArrayList<>();
         this.favoriteCategories = new ArrayList<>();
+        this.notifications = new ArrayList<>();
     }
 
     @Override

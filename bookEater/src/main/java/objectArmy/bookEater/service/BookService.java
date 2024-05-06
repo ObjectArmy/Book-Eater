@@ -34,5 +34,4 @@ public class BookService {
         book.getCategories().forEach(this.bookCategoryService::saveCategory);
         this.bookRepository.save(book);
     }
-
 }
