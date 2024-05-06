@@ -14,7 +14,7 @@ import lombok.Setter;
 public class BookCategory {
     @Id
     @Getter
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @Setter
     @Getter

@@ -11,9 +11,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,12 +27,12 @@ import java.util.List;
 @Table(name = "user_profile")
 public class UserProfile implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     private String firstName;
     private String lastName;
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private Date dateOfBirth;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dateOfBirth;
     @Column(unique = true)
     private String email;
     private String password;
@@ -52,7 +52,7 @@ public class UserProfile implements UserDetails {
         this.outgoingBookRequests = new ArrayList<>();
     }
 
-    public UserProfile(String firstName, String lastName, Date dateOfBirth, int age, String email, String password) {
+    public UserProfile(String firstName, String lastName, LocalDate dateOfBirth, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
@@ -65,7 +65,7 @@ public class UserProfile implements UserDetails {
 
     @Override
     public String toString() {
-        return "UserProfile{" + "firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", dateOfBirth=" + dateOfBirth + ", email='" + email + '\'' + '}';
+        return "UserProfile{" + "id=" + id + "firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", dateOfBirth=" + dateOfBirth + ", email='" + email + '\'' + '}';
     }
 
     public void addBookOffer(BookOffer bookOffer) {
@@ -155,5 +155,13 @@ public class UserProfile implements UserDetails {
 
     public void removeIncomingBookRequest(BookRequest request) {
         this.outgoingBookRequests.remove(request);
+    }
+
+    public List<BookOffer> getRequestedBookOffers() {
+        List<BookOffer> requestedBookOffers = new ArrayList<>();
+        for (BookRequest request : this.outgoingBookRequests) {
+            requestedBookOffers.add(request.getBookOffer());
+        }
+        return requestedBookOffers;
     }
 }

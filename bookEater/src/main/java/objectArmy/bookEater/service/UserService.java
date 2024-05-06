@@ -1,6 +1,7 @@
 package objectArmy.bookEater.service;
 
-import objectArmy.bookEater.dao.UserProfileRepository;
+import lombok.NonNull;
+import objectArmy.bookEater.repository.UserProfileRepository;
 import objectArmy.bookEater.entity.user.UserProfile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,6 +10,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
 
 /**
  * @author Philip Athanasopoulos
@@ -51,40 +54,58 @@ public class UserService implements UserDetailsService {
         return userProfileRepository.findUserById(id);
     }
 
-    public void updateUser(UserProfile newUserProfile, Long id) {
+    public void updateUser(@NonNull UserProfile newUserProfile,@NonNull Long id) {
         UserProfile user = userProfileRepository.findUserById(id);
-        if (user == null) {
-            throw new UsernameNotFoundException("User not found");
-        }
 
-        if (newUserProfile.getFirstName() != null && !newUserProfile.getFirstName().equals(user.getFirstName())) {
-            user.setFirstName(newUserProfile.getFirstName());
-        }
+        if (isFirstNameValid(newUserProfile, user)) user.setFirstName(newUserProfile.getFirstName());
 
-        if (newUserProfile.getLastName() != null && !newUserProfile.getLastName().equals(user.getLastName())) {
-            user.setLastName(newUserProfile.getLastName());
-        }
+        if (isLastNameValid(newUserProfile, user)) user.setLastName(newUserProfile.getLastName());
 
-        if (newUserProfile.getEmail() != null && !newUserProfile.getEmail().equals(user.getEmail())) {
-            user.setEmail(newUserProfile.getEmail());
-        }
+        if (isEmailValid(newUserProfile, user)) user.setEmail(newUserProfile.getEmail());
 
-        if (newPasswordIsValid(newUserProfile, user)) {
+        if (isDateOfBirthValid(newUserProfile, user)) user.setDateOfBirth(newUserProfile.getDateOfBirth());
+
+        if (newPasswordIsValid(newUserProfile, user))
             user.setPassword(passwordEncoder.encode(newUserProfile.getPassword()));
-        }
 
-        if (newUserProfile.getBio() != null && !newUserProfile.getBio().equals(user.getBio())) {
-            user.setBio(newUserProfile.getBio());
-        }
+        if (isBioValid(newUserProfile, user)) user.setBio(newUserProfile.getBio());
 
-        if (newUserProfile.getFavoriteCategories() != null && !newUserProfile.getFavoriteCategories().equals(user.getFavoriteCategories())) {
+        if (areFavouriteCategoriesValid(newUserProfile, user))
             user.setFavoriteCategories(newUserProfile.getFavoriteCategories());
-        }
 
         userProfileRepository.save(user);
     }
 
+    private boolean areFavouriteCategoriesValid(UserProfile newUserProfile, UserProfile user) {
+        return newUserProfile.getFavoriteCategories() != null && !newUserProfile.getFavoriteCategories().equals(user.getFavoriteCategories());
+    }
+
+    private boolean isBioValid(UserProfile newUserProfile, UserProfile user) {
+        return newUserProfile.getBio() != null && !newUserProfile.getBio().equals(user.getBio());
+    }
+
+    private boolean isFirstNameValid(UserProfile newUserProfile, UserProfile user) {
+        return newUserProfile.getFirstName() != null && !newUserProfile.getFirstName().equals(user.getFirstName());
+    }
+
+    private boolean isLastNameValid(UserProfile newUserProfile, UserProfile user) {
+        return newUserProfile.getLastName() != null && !newUserProfile.getLastName().equals(user.getLastName());
+    }
+
+    private boolean isEmailValid(UserProfile newUserProfile, UserProfile user) {
+        return newUserProfile.getEmail() != null && !newUserProfile.getEmail().equals(user.getEmail());
+    }
+
+    private boolean isDateOfBirthValid(UserProfile newUserProfile, UserProfile user) {
+        return newUserProfile.getDateOfBirth() != null &&
+                !newUserProfile.getDateOfBirth().equals(user.getDateOfBirth()) &&
+                LocalDate.now().isAfter(newUserProfile.getDateOfBirth());
+    }
+
     private boolean newPasswordIsValid(UserProfile newUserProfile, UserProfile user) {
-        return newUserProfile.getPassword() != null && !passwordEncoder.matches(newUserProfile.getPassword(), user.getPassword()) && !newUserProfile.getPassword().trim().isBlank() && newUserProfile.getPassword().length() >= 8;
+        return (newUserProfile.getPassword() != null) &&
+                !passwordEncoder.matches(newUserProfile.getPassword(), user.getPassword()) &&
+                !newUserProfile.getPassword().trim().isBlank() &&
+                (newUserProfile.getPassword().length() >= 8);
     }
 }

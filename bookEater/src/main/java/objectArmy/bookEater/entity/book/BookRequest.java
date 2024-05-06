@@ -12,11 +12,17 @@ import objectArmy.bookEater.entity.user.UserProfile;
 @Setter
 @Getter
 @Entity
-@Table(name = "book_request")
+// a user can only request a book once
+@Table(name = "book_request",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"requestee_id", "book_offer_id"})
+        }
+)
+
 @NoArgsConstructor
 public class BookRequest {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @ManyToOne
     private UserProfile requestee;
@@ -27,5 +33,4 @@ public class BookRequest {
         this.requestee = requestee;
         this.bookOffer = bookOffer;
     }
-
 }

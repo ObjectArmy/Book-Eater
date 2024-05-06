@@ -1,6 +1,6 @@
 package objectArmy.bookEater.service;
 
-import objectArmy.bookEater.dao.BookRepository;
+import objectArmy.bookEater.repository.BookRepository;
 import objectArmy.bookEater.entity.book.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

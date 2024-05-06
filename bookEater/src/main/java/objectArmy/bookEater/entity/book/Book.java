@@ -18,7 +18,7 @@ import java.util.List;
 @Setter
 public class Book {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
     @ManyToMany
     private List<Author> authors;

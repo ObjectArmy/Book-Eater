@@ -14,9 +14,7 @@
     </div>
 
     <h1 class="ms-5" th:text="'Welcome, ' + ${user.firstName}">Welcome</h1>
-
 </div>
-
 
 <!--</div>-->
 <div class="container">
@@ -58,11 +56,16 @@
                         </span>
                         </div>
                     </div>
-                    <div class="d-flex justify-content-between total font-weight-bold mt-4">
-                        <form th:action="@{'/requestBook/' + ${user.getId()} + '/' + ${bookOffer.getId()}}"
-                              method="post">
-                            <button class="btn btn-primary" type="submit">Request</button>
-                        </form>
+                    <div th:each="bookOffer : ${allBookOffers}" class="col-md-4 ">
+                        <div class="d-flex justify-content-between total font-weight-bold mt-4">
+                            <form th:action="@{'/requestBook/' + ${user.getId()} + '/' + ${bookOffer.getId()}}"
+                                  method="post">
+                                <button class="btn btn-primary" type="submit"
+                                        th:disabled="${#lists.contains(user.getRequestedBookOffers(), bookOffer)}"
+                                        th:text="${#lists.contains(user.getRequestedBookOffers(), bookOffer) ? 'Requested' : 'Request'}">
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -106,7 +109,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 

@@ -1,6 +1,6 @@
 package objectArmy.bookEater.service;
 
-import objectArmy.bookEater.dao.BookCategoryRepository;
+import objectArmy.bookEater.repository.BookCategoryRepository;
 import objectArmy.bookEater.entity.book.BookCategory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

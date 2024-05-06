@@ -1,4 +1,4 @@
-package objectArmy.bookEater.dao;
+package objectArmy.bookEater.repository;
 
 import objectArmy.bookEater.entity.book.BookOffer;
 import objectArmy.bookEater.entity.book.BookRequest;

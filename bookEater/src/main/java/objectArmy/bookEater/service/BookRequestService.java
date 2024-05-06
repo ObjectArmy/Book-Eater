@@ -1,6 +1,6 @@
 package objectArmy.bookEater.service;
 
-import objectArmy.bookEater.dao.BookRequestRepository;
+import objectArmy.bookEater.repository.BookRequestRepository;
 import objectArmy.bookEater.entity.book.BookOffer;
 import objectArmy.bookEater.entity.book.BookRequest;
 import objectArmy.bookEater.entity.user.UserProfile;
@@ -59,20 +59,17 @@ public class BookRequestService {
         UserProfile acceptedUser = request.getRequestee();
         acceptedUser.sentNotification("Your request for " + offer.getOfferedBook().getTitle() + " has been accepted!");
 
-        List<BookRequest> requestsToRemove = bookRequestRepository.findAllByBookOfferId(offer.getId());
-        for (BookRequest bookRequest : requestsToRemove) {
-            if (bookRequest.getRequestee().equals(acceptedUser)) {
-                requestsToRemove.remove(bookRequest);
-                break;
-            }
+        List<BookRequest> requestsToDecline = bookRequestRepository.findAllByBookOfferId(offer.getId()).stream().filter(bookRequest -> !bookRequest.equals(request)).toList();
+        for (BookRequest bookRequest : requestsToDecline) {
+            bookRequest.getRequestee().sentNotification("Your request for " + offer.getOfferedBook().getTitle() + " has been declined.");
         }
 
-        for (BookRequest bookRequest : requestsToRemove) {
+        for (BookRequest bookRequest : requestsToDecline) {
             offer.removeRequest(bookRequest);
             bookRequest.getRequestee().removeOutgoingBookRequest(bookRequest);
         }
 
-        bookRequestRepository.deleteAll(requestsToRemove);
+        bookRequestRepository.deleteAll(requestsToDecline);
     }
 
     public void deleteAllBookRequestsForOffer(BookOffer offer) {

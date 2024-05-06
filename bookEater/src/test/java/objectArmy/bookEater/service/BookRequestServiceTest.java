@@ -1,6 +1,6 @@
 package objectArmy.bookEater.service;
 
-import objectArmy.bookEater.dao.BookRequestRepository;
+import objectArmy.bookEater.repository.BookRequestRepository;
 import objectArmy.bookEater.entity.book.Book;
 import objectArmy.bookEater.entity.book.BookOffer;
 import objectArmy.bookEater.entity.book.BookRequest;
@@ -10,9 +10,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -36,8 +36,8 @@ class BookRequestServiceTest {
 
     @BeforeEach
     void setUp() {
-        user1 = new UserProfile("aFirstName", "aLastName", new Date(), 20, "someone@gmail.com", "password");
-        user2 = new UserProfile("aFirstName", "aLastName", new Date(), 20, "someoneElse@gmail.com", "password");
+        user1 = new UserProfile("aFirstName", "aLastName", LocalDate.now(), "someone@gmail.com", "password");
+        user2 = new UserProfile("aFirstName", "aLastName", LocalDate.now(), "someoneElse@gmail.com", "password");
         userService.saveUser(user1);
         userService.saveUser(user2);
 

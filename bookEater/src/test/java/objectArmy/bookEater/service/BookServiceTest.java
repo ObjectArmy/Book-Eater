@@ -1,8 +1,8 @@
 package objectArmy.bookEater.service;
 
-import objectArmy.bookEater.dao.AuthorRepository;
-import objectArmy.bookEater.dao.BookCategoryRepository;
-import objectArmy.bookEater.dao.BookRepository;
+import objectArmy.bookEater.repository.AuthorRepository;
+import objectArmy.bookEater.repository.BookCategoryRepository;
+import objectArmy.bookEater.repository.BookRepository;
 import objectArmy.bookEater.entity.book.Author;
 import objectArmy.bookEater.entity.book.Book;
 import objectArmy.bookEater.entity.book.BookCategory;

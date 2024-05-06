@@ -20,7 +20,7 @@ import java.util.List;
 @Setter
 public class BookOffer {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @ManyToOne
     private UserProfile offeror;

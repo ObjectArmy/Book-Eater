@@ -1,6 +1,6 @@
 package objectArmy.bookEater.service;
 
-import objectArmy.bookEater.dao.BookOfferRepository;
+import objectArmy.bookEater.repository.BookOfferRepository;
 import objectArmy.bookEater.entity.book.BookCategory;
 import objectArmy.bookEater.entity.book.BookOffer;
 import objectArmy.bookEater.entity.user.UserProfile;

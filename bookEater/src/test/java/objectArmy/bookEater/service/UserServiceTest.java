@@ -6,8 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
+import java.time.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,7 +23,7 @@ public class UserServiceTest {
 
     @BeforeEach
     public void setUp() {
-        user1 = new UserProfile("aFirstName", "aLastName", new Date(), 20, "someone@gmail.com", "password");
+        user1 = new UserProfile("aFirstName", "aLastName",LocalDate.of(2002,11,4), "someone@gmail.com", "password");
         userService.saveUser(user1);
     }
 
@@ -43,8 +44,8 @@ public class UserServiceTest {
     }
 
     @Test
+    @Transactional
     void getUserById() {
-        //FIXME
         assertEquals(user1, userService.getUserById(1));
     }
 
