@@ -1,7 +1,7 @@
 package objectArmy.bookEater.service;
 
-import objectArmy.bookEater.repository.AuthorRepository;
 import objectArmy.bookEater.entity.book.Author;
+import objectArmy.bookEater.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,7 +44,7 @@ public class AuthorService {
     }
 
     public void saveAuthor(Author author) {
-        authorRepository.save(author);
+        if (authorRepository.findByName(author.getName()) == null) authorRepository.save(author);
     }
 }
 

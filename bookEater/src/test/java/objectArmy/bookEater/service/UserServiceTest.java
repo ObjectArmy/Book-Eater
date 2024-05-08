@@ -1,5 +1,6 @@
 package objectArmy.bookEater.service;
 
+import objectArmy.bookEater.entity.book.BookCategory;
 import objectArmy.bookEater.entity.user.UserProfile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,6 +10,8 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,12 +22,19 @@ public class UserServiceTest {
     BookOfferService bookOfferService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private BookCategoryService bookCategoryService;
     private UserProfile user1;
+    private BookCategory category;
 
     @BeforeEach
     public void setUp() {
         user1 = new UserProfile("aFirstName", "aLastName", LocalDate.of(2002, 11, 4), "someone@gmail.com", "password");
         userService.saveUser(user1);
+
+        category = new BookCategory("Fantasy");
+        bookCategoryService.saveCategory(category);
+
     }
 
     @Test
@@ -41,6 +51,7 @@ public class UserServiceTest {
 
     @Test
     void loadUserByUsername() {
+        assertNotNull(userService.loadUserByUsername("someone@gmail.com"));
     }
 
     @Test
@@ -51,8 +62,13 @@ public class UserServiceTest {
 
 
     @Test
+    @Transactional
     void updateUser() {
-        UserProfile userWithUpdatedData = new UserProfile("Mike", "Mikeson", LocalDate.of(2002, 5, 1), "mikeMikeson@gmail.com", "qwerty");
+        UserProfile userWithUpdatedData = new UserProfile("Mike", "Mikeson", LocalDate.of(2002, 5, 1), "mikeMikeson@gmail.com", "qwerty123");
+        List<BookCategory> favoriteCategories = new ArrayList<>();
+        favoriteCategories.add(category);
+        userWithUpdatedData.setFavoriteCategories(favoriteCategories);
+
         userService.updateUser(userWithUpdatedData,1L);
 
         UserProfile updatedUser = userService.getUserById(1L);
@@ -60,6 +76,7 @@ public class UserServiceTest {
         assertEquals(userWithUpdatedData.getLastName(), updatedUser.getLastName());
         assertEquals(userWithUpdatedData.getDateOfBirth(), updatedUser.getDateOfBirth());
         assertEquals(userWithUpdatedData.getEmail(), updatedUser.getEmail());
-        //TODO password
+        assertEquals(userWithUpdatedData.getFavoriteCategories(), updatedUser.getFavoriteCategories());
+        assertEquals(userWithUpdatedData.getBio(), updatedUser.getBio());
     }
 }

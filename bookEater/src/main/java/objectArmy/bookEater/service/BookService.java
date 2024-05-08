@@ -1,5 +1,7 @@
 package objectArmy.bookEater.service;
 
+import objectArmy.bookEater.entity.book.Author;
+import objectArmy.bookEater.entity.book.BookCategory;
 import objectArmy.bookEater.repository.BookRepository;
 import objectArmy.bookEater.entity.book.Book;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +32,12 @@ public class BookService {
     }
 
     public void saveBook(Book book) {
-        book.getAuthors().forEach(this.authorService::saveAuthor);
-        book.getCategories().forEach(this.bookCategoryService::saveCategory);
+        for (Author author : book.getAuthors()) {
+            this.authorService.saveAuthor(author);
+        }
+        for (BookCategory bookCategory : book.getCategories()) {
+            this.bookCategoryService.saveCategory(bookCategory);
+        }
         this.bookRepository.save(book);
     }
 }

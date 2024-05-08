@@ -28,7 +28,7 @@ public class Book {
     private List<BookCategory> categories;
 
 
-    public Book(ArrayList<Author> authors, String title, String summary, ArrayList<BookCategory> categories) {
+    public Book(List<Author> authors, String title, String summary, List<BookCategory> categories) {
         this.title = title;
         this.summary = summary;
         this.authors = authors;

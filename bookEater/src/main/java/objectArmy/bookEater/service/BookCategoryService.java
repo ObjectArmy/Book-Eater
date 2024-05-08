@@ -1,7 +1,7 @@
 package objectArmy.bookEater.service;
 
-import objectArmy.bookEater.repository.BookCategoryRepository;
 import objectArmy.bookEater.entity.book.BookCategory;
+import objectArmy.bookEater.repository.BookCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,6 +44,7 @@ public class BookCategoryService {
     }
 
     public void saveCategory(BookCategory category) {
-        bookCategoryRepository.save(category);
+        String categoryName = category.getName();
+        if (bookCategoryRepository.findByName(categoryName) == null) bookCategoryRepository.save(category);
     }
 }

@@ -56,7 +56,6 @@ class BookRequestServiceTest {
         assertEquals(user1.getIncomingBookRequests().get(0), bookRequest);
         assertEquals(user2.getOutgoingBookRequests().get(0), bookRequest);
         assertEquals(bookOffer.getRequests().get(0), bookRequest);
-
     }
 
     @Test
@@ -77,7 +76,6 @@ class BookRequestServiceTest {
         bookRequestService.saveBookRequest(bookRequest);
         BookRequest bookRequest1 = bookRequestService.getBookRequestById(1L);
         assertEquals(bookRequest, bookRequest1);
-
     }
 
     @Test
@@ -103,6 +101,5 @@ class BookRequestServiceTest {
         assertNull(bookRequestService.getBookRequestById(bookRequestToBeDeclined.getId()));
         assertEquals(1, user2.getNotifications().size());
         assertEquals("Your request for Title has been accepted!", user2.getNotifications().get(0));
-
     }
 }

@@ -16,7 +16,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * @author Philip Athanasopoulos
@@ -52,11 +53,12 @@ public class BookOfferServiceTest {
         userService.saveUser(user2);
 
 
-        Book offeredBook = new Book(new ArrayList<>() {
+        List<Author> authors = new ArrayList<>() {
             {
                 add(new Author("Author1"));
             }
-        }, "Title", "Summary", new ArrayList<>() {{
+        };
+        Book offeredBook = new Book(authors, "Title", "Summary", new ArrayList<>() {{
             add(new BookCategory("Category1"));
         }});
 

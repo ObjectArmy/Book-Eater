@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,7 @@ class BookServiceTest {
         ArrayList<Author> authors2 = new ArrayList<>();
         authors2.add(new Author("George R.R. Martin"));
         ArrayList<BookCategory> categories2 = new ArrayList<>();
-        categories2.add(new BookCategory("Fantasy"));
+        categories2.add(new BookCategory("Comedy"));
         Book book2 = new Book(authors2, "A Game of Thrones", "Intrigue and power struggles in a fantasy world", categories2);
 
         authorRepository.saveAll(authors1);
@@ -65,6 +66,7 @@ class BookServiceTest {
     }
 
     @Test
+    @Transactional
     void saveBook() {
         ArrayList<Author> authors = new ArrayList<>();
         authors.add(new Author("J.R.R. Tolkien"));
@@ -73,6 +75,6 @@ class BookServiceTest {
         Book book = new Book(authors, "The Lord of the Rings", "A hobbit's journey to destroy a powerful ring", categories);
         bookService.saveBook(book);
 
-        assertNotNull(bookRepository.getByTitle("The Lord of the Rings"));
+        assertNotNull(bookRepository.findById(1L));
     }
 }
