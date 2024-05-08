@@ -1,9 +1,9 @@
 package objectArmy.bookEater.service;
 
-import objectArmy.bookEater.repository.BookRequestRepository;
 import objectArmy.bookEater.entity.book.BookOffer;
 import objectArmy.bookEater.entity.book.BookRequest;
 import objectArmy.bookEater.entity.user.UserProfile;
+import objectArmy.bookEater.repository.BookRequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

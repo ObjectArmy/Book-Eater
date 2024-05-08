@@ -69,7 +69,7 @@ public class UserServiceTest {
         favoriteCategories.add(category);
         userWithUpdatedData.setFavoriteCategories(favoriteCategories);
 
-        userService.updateUser(userWithUpdatedData,1L);
+        userService.updateUser(userWithUpdatedData, 1L);
 
         UserProfile updatedUser = userService.getUserById(1L);
         assertEquals(userWithUpdatedData.getFirstName(), updatedUser.getFirstName());

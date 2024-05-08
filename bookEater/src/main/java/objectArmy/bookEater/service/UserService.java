@@ -1,8 +1,8 @@
 package objectArmy.bookEater.service;
 
 import lombok.NonNull;
-import objectArmy.bookEater.repository.UserProfileRepository;
 import objectArmy.bookEater.entity.user.UserProfile;
+import objectArmy.bookEater.repository.UserProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -54,7 +54,7 @@ public class UserService implements UserDetailsService {
         return userProfileRepository.findUserById(id);
     }
 
-    public void updateUser(@NonNull UserProfile newUserProfile,@NonNull Long id) {
+    public void updateUser(@NonNull UserProfile newUserProfile, @NonNull Long id) {
         UserProfile user = userProfileRepository.findUserById(id);
 
         if (isFirstNameValid(newUserProfile, user)) user.setFirstName(newUserProfile.getFirstName());

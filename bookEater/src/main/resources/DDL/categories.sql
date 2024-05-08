@@ -1,7 +1,6 @@
 -- Inserting book categories
 INSERT INTO book_category (id, name)
-VALUES
-       (2, 'Non-fiction'),
+VALUES (2, 'Non-fiction'),
        (3, 'Science Fiction'),
        (4, 'Fantasy'),
        (5, 'Mystery'),

@@ -20,12 +20,12 @@ import java.util.Date;
 
 @Controller
 public class BookOfferController {
-    private UserService userService;
-    private BookOfferService bookOfferService;
-    private BookService bookService;
-    private BookCategoryService bookCategoryService;
-    private AuthorService authorService;
-    private BookRequestService bookRequestService;
+    private final UserService userService;
+    private final BookOfferService bookOfferService;
+    private final BookService bookService;
+    private final BookCategoryService bookCategoryService;
+    private final AuthorService authorService;
+    private final BookRequestService bookRequestService;
 
     @Autowired
     public BookOfferController(UserService userService, BookOfferService bookOfferService, BookService bookService, BookCategoryService bookCategoryService, AuthorService authorService, BookRequestService bookRequestService) {

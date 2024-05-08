@@ -26,7 +26,7 @@ public class SearchController {
     private final Searcher searcher;
     private final SearchStrategyFactory searchStrategyFactory;
     private AuthorSearchStrategy authorSearcher;
-    private UserService userService;
+    private final UserService userService;
 
     @Autowired
     public SearchController(UserService userService, Searcher searcher, SearchStrategyFactory searchStrategyFactory) {

@@ -1,10 +1,10 @@
 package objectArmy.bookEater.service;
 
-import objectArmy.bookEater.repository.BookRequestRepository;
 import objectArmy.bookEater.entity.book.Book;
 import objectArmy.bookEater.entity.book.BookOffer;
 import objectArmy.bookEater.entity.book.BookRequest;
 import objectArmy.bookEater.entity.user.UserProfile;
+import objectArmy.bookEater.repository.BookRequestRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

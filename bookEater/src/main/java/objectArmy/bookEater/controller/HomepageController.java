@@ -10,7 +10,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * @author Philip Athanasopoulos
@@ -18,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HomepageController {
 
-    private BookOfferService bookOfferService;
-    private UserService userService;
-    private BookOfferRecommender bookOfferRecommender;
+    private final BookOfferService bookOfferService;
+    private final UserService userService;
+    private final BookOfferRecommender bookOfferRecommender;
 
     @Autowired
     public HomepageController(BookOfferService bookOfferService, UserService userService, BookOfferRecommender bookOfferRecommender) {

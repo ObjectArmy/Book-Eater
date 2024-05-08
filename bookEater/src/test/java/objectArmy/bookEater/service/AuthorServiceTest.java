@@ -1,7 +1,7 @@
 package objectArmy.bookEater.service;
 
-import objectArmy.bookEater.repository.AuthorRepository;
 import objectArmy.bookEater.entity.book.Author;
+import objectArmy.bookEater.repository.AuthorRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
