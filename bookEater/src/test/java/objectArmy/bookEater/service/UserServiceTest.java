@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.*;
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,7 +23,7 @@ public class UserServiceTest {
 
     @BeforeEach
     public void setUp() {
-        user1 = new UserProfile("aFirstName", "aLastName",LocalDate.of(2002,11,4), "someone@gmail.com", "password");
+        user1 = new UserProfile("aFirstName", "aLastName", LocalDate.of(2002, 11, 4), "someone@gmail.com", "password");
         userService.saveUser(user1);
     }
 
@@ -52,6 +52,14 @@ public class UserServiceTest {
 
     @Test
     void updateUser() {
-        //TODO
+        UserProfile userWithUpdatedData = new UserProfile("Mike", "Mikeson", LocalDate.of(2002, 5, 1), "mikeMikeson@gmail.com", "qwerty");
+        userService.updateUser(userWithUpdatedData,1L);
+
+        UserProfile updatedUser = userService.getUserById(1L);
+        assertEquals(userWithUpdatedData.getFirstName(), updatedUser.getFirstName());
+        assertEquals(userWithUpdatedData.getLastName(), updatedUser.getLastName());
+        assertEquals(userWithUpdatedData.getDateOfBirth(), updatedUser.getDateOfBirth());
+        assertEquals(userWithUpdatedData.getEmail(), updatedUser.getEmail());
+        //TODO password
     }
 }
