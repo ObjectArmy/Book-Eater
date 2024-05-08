@@ -11,13 +11,13 @@ import lombok.Setter;
 @Entity
 @Table(name = "book_category")
 @NoArgsConstructor
+@Getter
+@Setter
 public class BookCategory {
     @Id
-    @Getter
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    @Setter
-    @Getter
+    @Column(unique = true)
     private String name;
 
     public BookCategory(String name) {
