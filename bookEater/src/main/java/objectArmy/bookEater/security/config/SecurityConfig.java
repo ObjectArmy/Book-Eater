@@ -2,6 +2,7 @@ package objectArmy.bookEater.security.config;
 
 import objectArmy.bookEater.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
@@ -20,6 +21,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
  */
 @Configuration
 @EnableWebSecurity
+@EnableAutoConfiguration
 public class SecurityConfig {
 
     private final CustomSuccessHandler customSuccessHandler;

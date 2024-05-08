@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * @author Philip Athanasopoulos
@@ -38,7 +39,7 @@ public class HomepageController {
         model.addAttribute("allBookOffers", bookOfferService.getAllBookOffersExceptFor(user.getId()));
         model.addAttribute("user", user);
 
-        return "/homepage";
+        return "homepage";
     }
 
     @GetMapping("/notifications")
