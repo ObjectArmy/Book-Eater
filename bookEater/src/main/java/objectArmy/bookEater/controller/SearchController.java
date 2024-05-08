@@ -1,7 +1,6 @@
 package objectArmy.bookEater.controller;
 
 import objectArmy.bookEater.entity.book.BookOffer;
-import objectArmy.bookEater.entity.search.AuthorSearchStrategy;
 import objectArmy.bookEater.entity.search.SearchStrategyFactory;
 import objectArmy.bookEater.entity.search.Searcher;
 import objectArmy.bookEater.entity.user.UserProfile;
@@ -25,7 +24,6 @@ public class SearchController {
 
     private final Searcher searcher;
     private final SearchStrategyFactory searchStrategyFactory;
-    private AuthorSearchStrategy authorSearcher;
     private final UserService userService;
 
     @Autowired
