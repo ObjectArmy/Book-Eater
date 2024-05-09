@@ -51,12 +51,11 @@ public class UserSettingsController {
         user = userService.getUserById(user.getId());
 
         String[] categories = bookCategories.split(",");
-        System.out.println("Categories: " + Arrays.toString(categories));
         List<BookCategory> favoriteCategories = new ArrayList<>();
         for (String category : categories) {
-            favoriteCategories.add(bookCategoryService.findBookCategoryByName(category));
+            BookCategory bookCategoryByName = bookCategoryService.findBookCategoryByName(category.trim());
+            if (bookCategoryByName!=null) favoriteCategories.add(bookCategoryByName);
         }
-        System.out.println("Favorite categories: " + favoriteCategories);
         userProfile.setFavoriteCategories(favoriteCategories);
 
         userService.updateUser(userProfile, user.getId());

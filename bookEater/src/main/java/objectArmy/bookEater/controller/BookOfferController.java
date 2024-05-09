@@ -65,11 +65,11 @@ public class BookOfferController {
         UserProfile loadedUser = userService.getUserById(user.getId());
         bookOffer.getOfferedBook().setAuthors(new ArrayList<>());
         for (String authorName : authorNames.split(","))
-            bookOffer.getOfferedBook().addAuthor(authorService.getAuthorOrElseCreate(authorName));
+            bookOffer.getOfferedBook().addAuthor(authorService.getAuthorOrElseCreate(authorName.trim()));
 
         bookOffer.getOfferedBook().setCategories(new ArrayList<>());
         for (String categoryName : categoryNames.split(","))
-            bookOffer.getOfferedBook().addCategory(bookCategoryService.getBookCategoryOrElseCreate(categoryName));
+            bookOffer.getOfferedBook().addCategory(bookCategoryService.getBookCategoryOrElseCreate(categoryName.trim()));
 
         bookOffer.setOfferor(loadedUser);
         bookOffer.setPostDate(new Date());

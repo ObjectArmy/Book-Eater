@@ -70,8 +70,10 @@ public class UserService implements UserDetailsService {
 
         if (isBioValid(newUserProfile, user)) user.setBio(newUserProfile.getBio());
 
-        if (areFavouriteCategoriesValid(newUserProfile, user))
+        if (areFavouriteCategoriesValid(newUserProfile, user)) {
+            System.out.println("Categories were updated");
             user.setFavoriteCategories(newUserProfile.getFavoriteCategories());
+        }
 
         userProfileRepository.save(user);
     }
